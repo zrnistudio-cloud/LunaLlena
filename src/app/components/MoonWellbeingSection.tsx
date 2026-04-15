@@ -22,7 +22,6 @@ import {
 import { getPhaseDailyGuidance } from '@/utils/dailyQuotes';
 
 type EvidenceTag = 'Bienestar' | 'Evidencia limitada' | 'Ritual / simbólico' | 'Portal personal';
-
 type CardKind = 'standard' | 'journal' | 'motivation';
 
 interface PortalCard {
@@ -33,6 +32,9 @@ interface PortalCard {
   kind?: CardKind;
   icon: typeof HeartPulse;
   summary: string;
+  openingLine: string;
+  consultationTopics: string[];
+  watchouts: string[];
   scientific: string[];
   mystical: string[];
   practices: string[];
@@ -69,6 +71,17 @@ const cards: PortalCard[] = [
     icon: HeartPulse,
     summary:
       'Un espacio para mirar cómo cambia tu mundo emocional a lo largo del mes lunar, sin convertir cada sensación en una regla fija.',
+    openingLine:
+      'Ideal para leer climas emocionales, preparar sesiones de tarot o journaling y detectar si tu sensibilidad está pidiendo pausa, expresión o contención.',
+    consultationTopics: [
+      'Cambios de humor cerca de luna llena o luna nueva.',
+      'Necesidad de aislamiento, mayor intuición o hipersensibilidad.',
+      'Cómo acompañar emocionalmente consultas, clases o rituales grupales.',
+    ],
+    watchouts: [
+      'Si hay angustia sostenida o desregulación fuerte, priorizá apoyo profesional.',
+      'No fuerces una explicación lunar si el patrón real parece venir del estrés o del vínculo.',
+    ],
     scientific: [
       'No hay una prueba universal de que cada fase lunar provoque la misma emoción en todas las personas.',
       'Sí está bien documentado que el descanso, el estrés, el contexto vincular y los cambios hormonales influyen mucho en la regulación emocional.',
@@ -84,8 +97,10 @@ const cards: PortalCard[] = [
       'Armá un pequeño ritual: vela, respiración y una pregunta de cierre o intención según la fase.',
       'Usá esta sección como consulta antes de sesiones de tarot, meditación o journaling.',
     ],
-    journal: '¿Qué emoción me pide ser escuchada hoy y qué parte de mi energía necesita cuidado en vez de exigencia?',
-    motivation: 'Tu sensibilidad no es un error del sistema: es información que, bien leída, se vuelve brújula.',
+    journal:
+      '¿Qué emoción me pide ser escuchada hoy y qué parte de mi energía necesita cuidado en vez de exigencia?',
+    motivation:
+      'Tu sensibilidad no es un error del sistema: es información que, bien leída, se vuelve brújula.',
   },
   {
     title: 'Sueño y Luna',
@@ -95,13 +110,24 @@ const cards: PortalCard[] = [
     icon: Bed,
     summary:
       'Una guía para entender por qué a veces sentimos el descanso alterado cerca de ciertas fases y cómo separar percepción, rutina y simbolismo.',
+    openingLine:
+      'Sirve para quienes sienten noches más inquietas, sueños intensos o despertares frecuentes y quieren ordenar mejor qué parte es hábito, qué parte es cuerpo y qué parte es lectura simbólica.',
+    consultationTopics: [
+      'Despertares frecuentes o dificultad para bajar antes de dormir.',
+      'Sueños intensos, repetitivos o más vívidos en ciertos momentos del mes.',
+      'Rutinas que mejoran el descanso cuando hay alta activación interna.',
+    ],
+    watchouts: [
+      'El insomnio crónico no se resuelve con rituales solamente.',
+      'Alcohol, pantallas y estrés suelen pesar más que la fase lunar.',
+    ],
     scientific: [
       'La evidencia científica sobre luna y sueño es mixta: hay estudios con diferencias leves y otros que no encuentran patrones robustos.',
       'Pantallas, estrés, cafeína, hábitos nocturnos y exposición a la luz tienen efectos más consistentes sobre el descanso.',
       'Si el insomnio es sostenido, lo importante es el cuidado del sueño y la consulta profesional cuando hace falta.',
     ],
     mystical: [
-      'En tradición simbólica, la luna llena se asocia con hiperactividad mental, revelaciones, sueños intensos y dificultad para “apagar” la mente.',
+      'En tradición simbólica, la luna llena se asocia con hiperactividad mental, revelaciones, sueños intensos y dificultad para apagar la mente.',
       'La luna menguante suele leerse como una etapa más apta para soltar, limpiar y bajar el ruido interno.',
       'Para muchas personas, dormir mal cerca de una fase puede funcionar como señal de exceso de carga emocional.',
     ],
@@ -110,8 +136,10 @@ const cards: PortalCard[] = [
       'Hacé una rutina de cierre: luz cálida, respiración lenta, té suave y cero pantalla antes de dormir.',
       'Si trabajás con prácticas energéticas, usá la noche para descarga y la mañana para interpretación.',
     ],
-    journal: '¿Qué me está costando soltar cuando llega la noche y qué necesita mi cuerpo para sentirse seguro al descansar?',
-    motivation: 'Descansar también es una práctica espiritual: cuando bajás la exigencia, el cuerpo vuelve a hablar más claro.',
+    journal:
+      '¿Qué me está costando soltar cuando llega la noche y qué necesita mi cuerpo para sentirse seguro al descansar?',
+    motivation:
+      'Descansar también es una práctica espiritual: cuando bajás la exigencia, el cuerpo vuelve a hablar más claro.',
   },
   {
     title: 'Ciclo menstrual',
@@ -121,6 +149,17 @@ const cards: PortalCard[] = [
     icon: Venus,
     summary:
       'Un puente entre información real del ciclo y la lectura lunar como herramienta de autoconocimiento, sin prometer sincronías perfectas.',
+    openingLine:
+      'Pensado para acompañar observación menstrual, fertilidad creativa y ciclos internos sin caer en mandatos espirituales ni en falsas promesas de sincronía total.',
+    consultationTopics: [
+      'Cómo registrar menstruación, ovulación y fase lunar sin rigidizarse.',
+      'Cambios de libido, claridad, cansancio o necesidad de recogimiento.',
+      'Formas de leer el ciclo como mapa corporal y también como símbolo.',
+    ],
+    watchouts: [
+      'Dolor fuerte, amenorrea o sangrados fuera de lo habitual necesitan consulta clínica.',
+      'La astrología menstrual puede acompañar, pero no diagnostica.',
+    ],
     scientific: [
       'No existe una sincronía lunar universal para todos los ciclos menstruales.',
       'Sí hay investigaciones y observaciones que muestran coincidencias parciales o intermitentes en algunas personas, pero no como norma fija.',
@@ -128,7 +167,7 @@ const cards: PortalCard[] = [
     ],
     mystical: [
       'En el plano simbólico, menstruar con luna nueva o luna llena suele leerse como una expresión de energía interna o externa.',
-      'Algunas corrientes hablan de “luna blanca” y “luna roja” para pensar momentos de fertilidad creativa, introspección o servicio.',
+      'Algunas corrientes hablan de luna blanca y luna roja para pensar momentos de fertilidad creativa, introspección o servicio.',
       'Más que una regla, puede ser una narrativa poderosa para leer tu propio proceso.',
     ],
     practices: [
@@ -136,8 +175,10 @@ const cards: PortalCard[] = [
       'Si acompañás con tarot o astrología, registrá qué temas aparecen en cada tramo del ciclo.',
       'Armá un calendario personal con menstruación, ovulación estimada y fase lunar del día.',
     ],
-    journal: '¿Qué me enseña mi ciclo sobre mis tiempos reales, incluso cuando no coinciden con la expectativa externa?',
-    motivation: 'Tu cuerpo no tiene que sincronizarse con ninguna teoría para estar hablándote con profundidad.',
+    journal:
+      '¿Qué me enseña mi ciclo sobre mis tiempos reales, incluso cuando no coinciden con la expectativa externa?',
+    motivation:
+      'Tu cuerpo no tiene que sincronizarse con ninguna teoría para estar hablándote con profundidad.',
   },
   {
     title: 'Embarazo y cuidado',
@@ -147,6 +188,17 @@ const cards: PortalCard[] = [
     icon: Baby,
     summary:
       'Una mirada cálida y prudente para quienes desean integrar la Luna al embarazo sin confundir simbolismo con indicación de salud.',
+    openingLine:
+      'Esta guía acompaña el deseo de vivir el embarazo con sensibilidad ritual y cuidado concreto, dando lugar al símbolo sin desarmar la prevención real.',
+    consultationTopics: [
+      'Qué prácticas suaves pueden acompañar ansiedad, cansancio o espera.',
+      'Cómo usar la Luna para conexión, gratitud o descanso corporal.',
+      'Qué señales no conviene romantizar ni leer solo desde lo energético.',
+    ],
+    watchouts: [
+      'Síntomas intensos, dudas o miedos físicos necesitan atención médica directa.',
+      'No atribuyas decisiones clínicas a una fase lunar.',
+    ],
     scientific: [
       'En el embarazo son frecuentes los cambios de sueño, cansancio, acidez, sensibilidad corporal y variaciones emocionales.',
       'No conviene atribuir síntomas o decisiones de salud a la Luna como causa principal.',
@@ -173,6 +225,17 @@ const cards: PortalCard[] = [
     icon: Stars,
     summary:
       'Una puerta para leer la fase lunar como clima simbólico y cruzarla con la mirada astrológica, ritual y terapéutica.',
+    openingLine:
+      'Funciona como mesa de consulta rápida para astrólogas, tarotistas y personas que quieren traducir el clima lunar a lenguaje de arquetipos, elementos y preguntas.',
+    consultationTopics: [
+      'Qué signo o elemento se siente más activo en la consulta actual.',
+      'Cómo bajar símbolos a preguntas concretas para una sesión.',
+      'Qué tema conviene trabajar: vínculo, dinero, cuerpo, voz o propósito.',
+    ],
+    watchouts: [
+      'Evitá usar el signo como etiqueta cerrada o sentencia.',
+      'La riqueza está en las preguntas que abre, no en acertar una personalidad.',
+    ],
     scientific: [
       'La lectura por signo pertenece al campo simbólico y cultural, no a la evidencia clínica.',
       'Puede ser muy valiosa como lenguaje de reflexión, identidad y acompañamiento subjetivo.',
@@ -188,8 +251,10 @@ const cards: PortalCard[] = [
       'Podés asociar cada signo a un elemento y elegir prácticas acordes: fuego, agua, aire o tierra.',
       'Dejá esta card como puerta de entrada a futuras lecturas personalizadas por signo lunar.',
     ],
-    journal: '¿Qué arquetipo pide expresarse hoy en mí y qué necesita para manifestarse con conciencia?',
-    motivation: 'El símbolo no viene a encerrarte: viene a darte un lenguaje para lo que todavía no sabés nombrar.',
+    journal:
+      '¿Qué arquetipo pide expresarse hoy en mí y qué necesita para manifestarse con conciencia?',
+    motivation:
+      'El símbolo no viene a encerrarte: viene a darte un lenguaje para lo que todavía no sabés nombrar.',
   },
   {
     title: 'Cristales y rituales',
@@ -199,6 +264,17 @@ const cards: PortalCard[] = [
     icon: Sparkles,
     summary:
       'Una zona dedicada a prácticas energéticas, piedras, agua lunar y pequeños rituales para quienes viven la Luna como altar, guía o compañía.',
+    openingLine:
+      'Acá la Luna aparece como contenedor de intención: no para prometer resultados mágicos, sino para dar forma a prácticas simbólicas con belleza, foco y presencia.',
+    consultationTopics: [
+      'Cuándo limpiar, cargar o consagrar piedras y objetos rituales.',
+      'Qué tipo de práctica combina mejor con cada fase lunar.',
+      'Cómo diseñar un altar o una ceremonia simple y sostenida.',
+    ],
+    watchouts: [
+      'No reemplaces tratamiento, descanso o decisiones de salud por trabajo energético.',
+      'La práctica ritual gana fuerza cuando es concreta y repetible.',
+    ],
     scientific: [
       'La carga de cristales y objetos pertenece al terreno simbólico o espiritual, no a una eficacia médica comprobada.',
       'Puede tener valor emocional, contemplativo o ritual, siempre que no reemplace cuidados reales.',
@@ -215,7 +291,8 @@ const cards: PortalCard[] = [
       'Usá esta información como consulta espiritual, no como promesa de curación física.',
     ],
     journal: '¿Qué intención quiero cargar, limpiar o consagrar en esta fase?',
-    motivation: 'El ritual no cambia la realidad por arte de magia: te cambia la forma de habitarla.',
+    motivation:
+      'El ritual no cambia la realidad por arte de magia: te cambia la forma de habitarla.',
   },
   {
     title: 'Mi registro',
@@ -226,6 +303,17 @@ const cards: PortalCard[] = [
     icon: MoonStar,
     summary:
       'El corazón del portal: una invitación a registrar lo que vivís y convertir esta web en una herramienta de consulta, educación, observación y motivación diaria.',
+    openingLine:
+      'Este espacio transforma la intuición en archivo: cada registro suma contexto para descubrir tus ritmos, anticipar momentos sensibles y sostener una práctica cotidiana.',
+    consultationTopics: [
+      'Cruzar fase lunar con ánimo, sueño, síntomas y energía.',
+      'Detectar repeticiones a lo largo de varias semanas.',
+      'Guardar material útil para sesiones, procesos creativos o lectura personal.',
+    ],
+    watchouts: [
+      'Un registro sirve más cuando es simple y constante que cuando busca perfección.',
+      'La autoobservación acompaña, pero no reemplaza atención profesional.',
+    ],
     scientific: [
       'El seguimiento personal sirve para identificar patrones propios sin caer en generalizaciones rápidas.',
       'Registrar sueño, ánimo, dolor, energía y ciclo ayuda a distinguir percepción aislada de tendencia real.',
@@ -253,6 +341,17 @@ const cards: PortalCard[] = [
     icon: BookHeart,
     summary:
       'Una entrada diaria pensada para volver a la web cada mañana: una frase, una intención y una lectura breve según el tono del momento lunar.',
+    openingLine:
+      'Diseñada como un pequeño oráculo cotidiano: algo breve, bello y útil para orientar el día sin saturarlo de teoría ni solemnidad.',
+    consultationTopics: [
+      'Abrir el día con una intención clara y habitable.',
+      'Usar la frase como mantra, inicio de tirada o foco de journaling.',
+      'Encontrar una dirección simple cuando la energía está dispersa.',
+    ],
+    watchouts: [
+      'La frase no tiene que pegar perfecto para ser útil.',
+      'No la conviertas en exigencia: usala como ancla, no como mandato.',
+    ],
     scientific: [
       'Una frase inspiradora no tiene evidencia médica por sí sola, pero puede funcionar como ancla de atención, pausa y foco emocional.',
       'Los rituales breves mejoran adherencia cuando se integran a una rutina cotidiana simple.',
@@ -269,7 +368,8 @@ const cards: PortalCard[] = [
       'Podés usarla como apertura de journal, tarot del día o mini ritual matinal.',
     ],
     journal: '¿Qué palabra quiero habitar hoy con coherencia, belleza y presencia?',
-    motivation: 'Tu día no necesita ser perfecto para estar bien guiado: necesita una intención que te devuelva al centro.',
+    motivation:
+      'Tu día no necesita ser perfecto para estar bien guiado: necesita una intención que te devuelva al centro.',
   },
 ];
 
@@ -285,16 +385,462 @@ const emptyJournalState = {
 
 function Tag({ value }: { value: EvidenceTag }) {
   const styles: Record<EvidenceTag, string> = {
-    'Bienestar': 'bg-emerald-500/12 text-emerald-100 border-emerald-300/20',
+    Bienestar: 'bg-emerald-500/12 text-emerald-100 border-emerald-300/20',
     'Evidencia limitada': 'bg-amber-500/12 text-amber-100 border-amber-300/20',
     'Ritual / simbólico': 'bg-fuchsia-500/12 text-fuchsia-100 border-fuchsia-300/20',
     'Portal personal': 'bg-sky-500/12 text-sky-100 border-sky-300/20',
   };
 
   return (
-    <span className={`inline-flex items-center rounded-full border px-3 py-1 text-[11px] uppercase tracking-[0.18em] ${styles[value]}`}>
+    <span
+      className={`inline-flex items-center rounded-full border px-3 py-1 text-[11px] uppercase tracking-[0.18em] ${styles[value]}`}
+    >
       {value}
     </span>
+  );
+}
+
+function EditorialPanel({
+  title,
+  items,
+  tone = 'default',
+}: {
+  title: string;
+  items: string[];
+  tone?: 'default' | 'glow';
+}) {
+  return (
+    <section
+      className={`rounded-[1.5rem] border p-5 ${
+        tone === 'glow'
+          ? 'border-fuchsia-300/18 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(217,70,239,0.08))]'
+          : 'border-white/10 bg-white/[0.04]'
+      }`}
+    >
+      <h5 className="mb-3 text-xs uppercase tracking-[0.22em] text-white/55">{title}</h5>
+      <div className="space-y-3">
+        {items.map((item) => (
+          <div key={item} className="flex gap-3">
+            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-fuchsia-300/80" />
+            <p className="text-sm leading-relaxed text-white/82">{item}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function StandardContent({ card }: { card: PortalCard }) {
+  return (
+    <div className="grid grid-cols-1 gap-6 xl:grid-cols-[1.1fr_0.9fr]">
+      <div className="space-y-6">
+        <section className="rounded-[1.5rem] border border-emerald-300/16 bg-emerald-500/6 p-5">
+          <h5 className="mb-3 text-xs uppercase tracking-[0.22em] text-emerald-100">
+            Información y evidencia disponible
+          </h5>
+          <div className="space-y-3">
+            {card.scientific.map((item) => (
+              <p key={item} className="leading-relaxed text-white/82">
+                {item}
+              </p>
+            ))}
+          </div>
+        </section>
+
+        <section className="rounded-[1.5rem] border border-fuchsia-300/16 bg-fuchsia-500/6 p-5">
+          <h5 className="mb-3 text-xs uppercase tracking-[0.22em] text-fuchsia-100">
+            Mirada esotérica, mística y astral
+          </h5>
+          <div className="space-y-3">
+            {card.mystical.map((item) => (
+              <p key={item} className="leading-relaxed text-white/82">
+                {item}
+              </p>
+            ))}
+          </div>
+        </section>
+      </div>
+
+      <div className="space-y-6">
+        <EditorialPanel title="Cómo usar esta sección" items={card.practices} />
+
+        <section className="rounded-[1.5rem] border border-sky-300/16 bg-sky-500/6 p-5">
+          <h5 className="mb-3 text-xs uppercase tracking-[0.22em] text-sky-100">Prompt de journal</h5>
+          <p className="text-lg leading-relaxed text-white/88">{card.journal}</p>
+        </section>
+
+        <section className="rounded-[1.5rem] border border-amber-300/16 bg-amber-500/6 p-5">
+          <h5 className="mb-3 text-xs uppercase tracking-[0.22em] text-amber-100">Motivación diaria</h5>
+          <p className="text-xl leading-tight text-white md:text-2xl font-display">{card.motivation}</p>
+        </section>
+      </div>
+    </div>
+  );
+}
+
+function MotivationContent({
+  card,
+  dailyGuidance,
+  phaseName,
+}: {
+  card: PortalCard;
+  dailyGuidance: ReturnType<typeof getPhaseDailyGuidance>;
+  phaseName: string;
+}) {
+  return (
+    <div className="grid grid-cols-1 gap-6 xl:grid-cols-[1.05fr_0.95fr]">
+      <div className="space-y-6">
+        <section className="rounded-[1.5rem] border border-emerald-300/16 bg-emerald-500/6 p-5">
+          <h5 className="mb-3 text-xs uppercase tracking-[0.22em] text-emerald-100">
+            Información y evidencia disponible
+          </h5>
+          <div className="space-y-3">
+            {card.scientific.map((item) => (
+              <p key={item} className="leading-relaxed text-white/82">
+                {item}
+              </p>
+            ))}
+          </div>
+        </section>
+
+        <section className="rounded-[1.5rem] border border-fuchsia-300/16 bg-fuchsia-500/6 p-5">
+          <h5 className="mb-3 text-xs uppercase tracking-[0.22em] text-fuchsia-100">
+            Mirada esotérica, mística y astral
+          </h5>
+          <div className="space-y-3">
+            {card.mystical.map((item) => (
+              <p key={item} className="leading-relaxed text-white/82">
+                {item}
+              </p>
+            ))}
+          </div>
+        </section>
+
+        <EditorialPanel title="Cómo integrarlo en tu día" items={card.practices} />
+      </div>
+
+      <div className="space-y-6">
+        <section className="rounded-[1.5rem] border border-amber-300/16 bg-amber-500/6 p-5">
+          <h5 className="mb-3 text-xs uppercase tracking-[0.22em] text-amber-100">Motivación de hoy</h5>
+          <p className="mb-2 text-sm uppercase tracking-[0.2em] text-white/55">
+            {dailyGuidance.title} · {phaseName}
+          </p>
+          <p className="mb-4 text-2xl leading-tight text-white md:text-3xl font-display">
+            {dailyGuidance.quote}
+          </p>
+          <p className="leading-relaxed text-white/78">{dailyGuidance.intention}</p>
+        </section>
+
+        <section className="rounded-[1.5rem] border border-sky-300/16 bg-sky-500/6 p-5">
+          <h5 className="mb-3 text-xs uppercase tracking-[0.22em] text-sky-100">Prompt de journal</h5>
+          <p className="text-lg leading-relaxed text-white/88">{card.journal}</p>
+        </section>
+
+        <section className="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-5">
+          <h5 className="mb-3 text-xs uppercase tracking-[0.22em] text-white/62">
+            Motivación base de la categoría
+          </h5>
+          <p className="leading-relaxed text-white/82">{card.motivation}</p>
+        </section>
+      </div>
+    </div>
+  );
+}
+
+function JournalContent({
+  card,
+  currentEntry,
+  selectedDate,
+  phaseName,
+  journalForm,
+  setJournalForm,
+  saveFeedback,
+  saveJournalEntry,
+  historyEntries,
+  historyRange,
+  setHistoryRange,
+  averageEnergy,
+  averageSleep,
+}: {
+  card: PortalCard;
+  currentEntry: JournalEntry | undefined;
+  selectedDate: Date;
+  phaseName: string;
+  journalForm: typeof emptyJournalState;
+  setJournalForm: React.Dispatch<React.SetStateAction<typeof emptyJournalState>>;
+  saveFeedback: string;
+  saveJournalEntry: () => void;
+  historyEntries: JournalEntry[];
+  historyRange: '7d' | '30d' | 'all';
+  setHistoryRange: React.Dispatch<React.SetStateAction<'7d' | '30d' | 'all'>>;
+  averageEnergy: string | null;
+  averageSleep: string | null;
+}) {
+  return (
+    <div className="grid grid-cols-1 gap-6 xl:grid-cols-[1.05fr_0.95fr]">
+      <div className="space-y-6">
+        <section className="rounded-[1.5rem] border border-emerald-300/16 bg-emerald-500/6 p-5">
+          <h5 className="mb-3 text-xs uppercase tracking-[0.22em] text-emerald-100">
+            Información y evidencia disponible
+          </h5>
+          <div className="space-y-3">
+            {card.scientific.map((item) => (
+              <p key={item} className="leading-relaxed text-white/82">
+                {item}
+              </p>
+            ))}
+          </div>
+        </section>
+
+        <section className="rounded-[1.5rem] border border-fuchsia-300/16 bg-fuchsia-500/6 p-5">
+          <h5 className="mb-3 text-xs uppercase tracking-[0.22em] text-fuchsia-100">
+            Mirada esotérica, mística y astral
+          </h5>
+          <div className="space-y-3">
+            {card.mystical.map((item) => (
+              <p key={item} className="leading-relaxed text-white/82">
+                {item}
+              </p>
+            ))}
+          </div>
+        </section>
+
+        <EditorialPanel title="Usos sugeridos en consulta o práctica" items={card.practices} />
+      </div>
+
+      <div className="space-y-6">
+        <section className="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-5">
+          <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <h5 className="mb-2 text-xs uppercase tracking-[0.22em] text-white/92">Registro real del día</h5>
+              <p className="text-sm text-white/64">
+                {format(selectedDate, "d 'de' MMMM 'de' yyyy", { locale: es })} · {phaseName}
+              </p>
+            </div>
+            {currentEntry && (
+              <span className="rounded-full border border-sky-300/20 bg-sky-500/10 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-sky-100">
+                Guardado
+              </span>
+            )}
+          </div>
+
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <label className="space-y-2">
+              <span className="text-sm text-white/70">Estado emocional</span>
+              <input
+                value={journalForm.mood}
+                onChange={(event) => setJournalForm((prev) => ({ ...prev, mood: event.target.value }))}
+                placeholder="Ej. sensible, clara, dispersa"
+                className="w-full rounded-2xl border border-white/10 bg-black/25 px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-fuchsia-300/30"
+              />
+            </label>
+
+            <label className="space-y-2">
+              <span className="text-sm text-white/70">Energía del 1 al 5</span>
+              <select
+                value={journalForm.energy}
+                onChange={(event) => setJournalForm((prev) => ({ ...prev, energy: event.target.value }))}
+                className="w-full rounded-2xl border border-white/10 bg-black/25 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-300/30"
+              >
+                {['1', '2', '3', '4', '5'].map((value) => (
+                  <option key={value} value={value} className="text-black">
+                    {value}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <label className="space-y-2">
+              <span className="text-sm text-white/70">Calidad de sueño del 1 al 5</span>
+              <select
+                value={journalForm.sleepScore}
+                onChange={(event) => setJournalForm((prev) => ({ ...prev, sleepScore: event.target.value }))}
+                className="w-full rounded-2xl border border-white/10 bg-black/25 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-300/30"
+              >
+                {['1', '2', '3', '4', '5'].map((value) => (
+                  <option key={value} value={value} className="text-black">
+                    {value}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <label className="space-y-2 md:col-span-2">
+              <span className="text-sm text-white/70">Sueño</span>
+              <input
+                value={journalForm.sleep}
+                onChange={(event) => setJournalForm((prev) => ({ ...prev, sleep: event.target.value }))}
+                placeholder="Ej. profundo, cortado, soñé mucho"
+                className="w-full rounded-2xl border border-white/10 bg-black/25 px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-fuchsia-300/30"
+              />
+            </label>
+
+            <label className="space-y-2 md:col-span-2">
+              <span className="text-sm text-white/70">Cuerpo / síntomas</span>
+              <input
+                value={journalForm.body}
+                onChange={(event) => setJournalForm((prev) => ({ ...prev, body: event.target.value }))}
+                placeholder="Ej. cansancio, dolor, liviandad, foco"
+                className="w-full rounded-2xl border border-white/10 bg-black/25 px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-fuchsia-300/30"
+              />
+            </label>
+
+            <label className="space-y-2 md:col-span-2">
+              <span className="text-sm text-white/70">Ritual / carta / práctica</span>
+              <input
+                value={journalForm.ritual}
+                onChange={(event) => setJournalForm((prev) => ({ ...prev, ritual: event.target.value }))}
+                placeholder="Ej. tarot, meditación, yoga, cristal, respiración"
+                className="w-full rounded-2xl border border-white/10 bg-black/25 px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-fuchsia-300/30"
+              />
+            </label>
+
+            <label className="space-y-2 md:col-span-2">
+              <span className="text-sm text-white/70">Notas</span>
+              <textarea
+                value={journalForm.notes}
+                onChange={(event) => setJournalForm((prev) => ({ ...prev, notes: event.target.value }))}
+                placeholder="Anotá lo que observaste hoy"
+                rows={5}
+                className="w-full resize-none rounded-2xl border border-white/10 bg-black/25 px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-fuchsia-300/30"
+              />
+            </label>
+          </div>
+
+          <div className="mt-5 flex flex-wrap items-center gap-3">
+            <button
+              type="button"
+              onClick={saveJournalEntry}
+              className="rounded-full bg-fuchsia-500 px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-fuchsia-400"
+            >
+              Guardar registro
+            </button>
+            {saveFeedback && <p className="text-sm text-emerald-200">{saveFeedback}</p>}
+          </div>
+
+          {currentEntry && (
+            <p className="mt-4 text-xs uppercase tracking-[0.18em] text-white/45">
+              Último guardado: {format(new Date(currentEntry.savedAt), "d 'de' MMMM · HH:mm", { locale: es })}
+            </p>
+          )}
+        </section>
+
+        <section className="rounded-[1.5rem] border border-fuchsia-300/16 bg-fuchsia-500/6 p-5">
+          <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <h5 className="mb-2 text-xs uppercase tracking-[0.22em] text-fuchsia-100">Vista histórica</h5>
+              <p className="text-sm text-white/58">
+                {historyEntries.length > 0
+                  ? `${historyEntries.length} registro${historyEntries.length === 1 ? '' : 's'} guardado${historyEntries.length === 1 ? '' : 's'}`
+                  : 'Todavía no hay historial guardado.'}
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center gap-2">
+              {(['7d', '30d', 'all'] as const).map((range) => (
+                <button
+                  key={range}
+                  type="button"
+                  onClick={() => setHistoryRange(range)}
+                  className={`rounded-full border px-3 py-1 text-[11px] uppercase tracking-[0.18em] transition-colors ${
+                    historyRange === range
+                      ? 'border-fuchsia-200/30 bg-white/90 text-[#1b1127]'
+                      : 'border-white/12 bg-black/15 text-white/68 hover:bg-white/10'
+                  }`}
+                >
+                  {range === '7d' ? '7 días' : range === '30d' ? '30 días' : 'Todo'}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {historyEntries.length > 0 ? (
+            <div className="space-y-4">
+              <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+                <div className="rounded-2xl border border-white/10 bg-black/18 p-4">
+                  <p className="mb-2 text-[11px] uppercase tracking-[0.16em] text-white/45">Energía media</p>
+                  <p className="text-2xl text-white font-display">{averageEnergy ?? '-'}</p>
+                </div>
+                <div className="rounded-2xl border border-white/10 bg-black/18 p-4">
+                  <p className="mb-2 text-[11px] uppercase tracking-[0.16em] text-white/45">Sueño medio</p>
+                  <p className="text-2xl text-white font-display">{averageSleep ?? '-'}</p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
+                <div className="space-y-2">
+                  <p className="text-[11px] uppercase tracking-[0.16em] text-white/45">Energía</p>
+                  {historyEntries.map((entry) => (
+                    <div key={`${entry.savedAt}-energy`} className="flex items-center gap-3">
+                      <div className="w-24 shrink-0 text-[11px] uppercase tracking-[0.16em] text-white/45">
+                        {format(new Date(entry.date), 'd MMM', { locale: es })}
+                      </div>
+                      <div className="h-2 flex-1 overflow-hidden rounded-full bg-white/10">
+                        <div
+                          className="h-full rounded-full bg-gradient-to-r from-fuchsia-400 via-sky-300 to-emerald-300"
+                          style={{ width: `${(Number(entry.energy || 0) / 5) * 100}%` }}
+                        />
+                      </div>
+                      <div className="w-8 text-right text-sm text-white/72">{entry.energy}</div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="space-y-2">
+                  <p className="text-[11px] uppercase tracking-[0.16em] text-white/45">Sueño</p>
+                  {historyEntries.map((entry) => (
+                    <div key={`${entry.savedAt}-sleep`} className="flex items-center gap-3">
+                      <div className="w-24 shrink-0 text-[11px] uppercase tracking-[0.16em] text-white/45">
+                        {format(new Date(entry.date), 'd MMM', { locale: es })}
+                      </div>
+                      <div className="h-2 flex-1 overflow-hidden rounded-full bg-white/10">
+                        <div
+                          className="h-full rounded-full bg-gradient-to-r from-amber-300 via-pink-300 to-fuchsia-300"
+                          style={{ width: `${(Number(entry.sleepScore || 0) / 5) * 100}%` }}
+                        />
+                      </div>
+                      <div className="w-8 text-right text-sm text-white/72">{entry.sleepScore ?? '-'}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="space-y-3">
+                {historyEntries.map((entry) => (
+                  <div key={`${entry.savedAt}-details`} className="rounded-2xl border border-white/10 bg-black/20 p-4">
+                    <div className="mb-2 flex flex-wrap items-center justify-between gap-3">
+                      <p className="text-sm font-medium text-white">
+                        {format(new Date(entry.date), "d 'de' MMMM 'de' yyyy", { locale: es })}
+                      </p>
+                      <span className="text-[11px] uppercase tracking-[0.16em] text-white/50">
+                        {entry.phaseName}
+                      </span>
+                    </div>
+                    <div className="grid grid-cols-1 gap-2 text-sm text-white/74 md:grid-cols-2">
+                      <p><span className="text-white/45">Estado:</span> {entry.mood || 'Sin dato'}</p>
+                      <p><span className="text-white/45">Sueño:</span> {entry.sleep || 'Sin dato'}</p>
+                      <p><span className="text-white/45">Calidad de sueño:</span> {entry.sleepScore || 'Sin dato'}</p>
+                      <p><span className="text-white/45">Cuerpo:</span> {entry.body || 'Sin dato'}</p>
+                      <p><span className="text-white/45">Ritual:</span> {entry.ritual || 'Sin dato'}</p>
+                    </div>
+                    {entry.notes && <p className="mt-3 text-sm leading-relaxed text-white/68">{entry.notes}</p>}
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <p className="leading-relaxed text-white/60">
+              Cuando guardes tus primeras entradas, vas a ver acá una pequeña línea de energía y una lista de notas recientes
+              para empezar a reconocer tus propios patrones.
+            </p>
+          )}
+        </section>
+
+        <section className="rounded-[1.5rem] border border-sky-300/16 bg-sky-500/6 p-5">
+          <h5 className="mb-3 text-xs uppercase tracking-[0.22em] text-sky-100">Prompt de journal</h5>
+          <p className="text-lg leading-relaxed text-white/88">{card.journal}</p>
+        </section>
+      </div>
+    </div>
   );
 }
 
@@ -304,7 +850,11 @@ export function MoonWellbeingSection({ selectedDate, phaseName }: MoonWellbeingS
   const [journalForm, setJournalForm] = useState(emptyJournalState);
   const [saveFeedback, setSaveFeedback] = useState('');
   const [historyRange, setHistoryRange] = useState<'7d' | '30d' | 'all'>('30d');
-  const dailyGuidance = useMemo(() => getPhaseDailyGuidance(phaseName, selectedDate), [phaseName, selectedDate]);
+
+  const dailyGuidance = useMemo(
+    () => getPhaseDailyGuidance(phaseName, selectedDate),
+    [phaseName, selectedDate],
+  );
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -338,6 +888,7 @@ export function MoonWellbeingSection({ selectedDate, phaseName }: MoonWellbeingS
   }, [dateKey, journalEntries]);
 
   const currentEntry = journalEntries[dateKey];
+
   const historyEntries = useMemo(() => {
     const now = new Date(selectedDate);
     const filtered = Object.values(journalEntries).filter((entry) => {
@@ -353,11 +904,13 @@ export function MoonWellbeingSection({ selectedDate, phaseName }: MoonWellbeingS
       .sort((a, b) => new Date(b.savedAt).getTime() - new Date(a.savedAt).getTime())
       .slice(0, 8);
   }, [journalEntries, historyRange, selectedDate]);
+
   const averageEnergy = useMemo(() => {
     if (historyEntries.length === 0) return null;
     const total = historyEntries.reduce((sum, entry) => sum + Number(entry.energy || 0), 0);
     return (total / historyEntries.length).toFixed(1);
   }, [historyEntries]);
+
   const averageSleep = useMemo(() => {
     if (historyEntries.length === 0) return null;
     const total = historyEntries.reduce((sum, entry) => sum + Number(entry.sleepScore || 0), 0);
@@ -392,401 +945,95 @@ export function MoonWellbeingSection({ selectedDate, phaseName }: MoonWellbeingS
 
   return (
     <section className="relative overflow-hidden rounded-[2rem] border border-white/12 bg-[#0a0712]/88 shadow-[0_24px_90px_rgba(7,3,14,0.48)] backdrop-blur-xl">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.08),transparent_28%),radial-gradient(circle_at_top_right,rgba(217,70,239,0.12),transparent_34%),linear-gradient(180deg,rgba(255,255,255,0.03),rgba(217,70,239,0.05)_55%,rgba(4,4,8,0.18))] pointer-events-none" />
-      <div className="absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-fuchsia-300/40 to-transparent pointer-events-none" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.08),transparent_28%),radial-gradient(circle_at_top_right,rgba(217,70,239,0.12),transparent_34%),linear-gradient(180deg,rgba(255,255,255,0.03),rgba(217,70,239,0.05)_55%,rgba(4,4,8,0.18))]" />
+      <div className="pointer-events-none absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-fuchsia-300/40 to-transparent" />
 
       <div className="relative px-5 py-8 md:px-8 md:py-10">
-        <div className="max-w-5xl mb-8">
-          <p className="text-fuchsia-100/65 uppercase tracking-[0.24em] text-xs mb-3">Luna y bienestar</p>
-          <h3 className="text-4xl md:text-5xl font-display text-white leading-[0.95] mb-4">
+        <div className="mb-8 max-w-5xl">
+          <p className="mb-3 text-xs uppercase tracking-[0.24em] text-fuchsia-100/65">Luna y bienestar</p>
+          <h3 className="mb-4 text-4xl leading-[0.95] text-white md:text-5xl font-display">
             Un portal de consulta, educación, journal y motivación diaria bajo cada fase
           </h3>
-          <p className="text-white/72 text-base md:text-lg leading-relaxed">
+          <p className="text-base leading-relaxed text-white/72 md:text-lg">
             Esta zona mezcla dos capas de lectura: una basada en evidencia disponible y otra simbólica, mística y astral.
             Está pensada para tarotistas, yoguis, astrólogas y para cualquier persona que quiera usar la Luna como guía
             cotidiana, sin confundir consulta espiritual con indicación médica.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
           {cards.map((card) => {
+            const Icon = card.icon;
+
             return (
               <Dialog key={card.title}>
                 <DialogTrigger asChild>
                   <button
                     type="button"
-                    className="group relative overflow-hidden rounded-[999px] border border-white/12 bg-white/[0.05] px-5 py-4 text-left transition-all duration-300 hover:bg-white/[0.08] hover:border-fuchsia-300/28"
+                    className="group relative overflow-hidden rounded-[999px] border border-white/12 bg-white/[0.05] px-5 py-4 text-left transition-all duration-300 hover:border-fuchsia-300/28 hover:bg-white/[0.08]"
                   >
-                    <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.04),transparent_36%,rgba(217,70,239,0.06))] pointer-events-none" />
+                    <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.04),transparent_36%,rgba(217,70,239,0.06))]" />
                     <div className="relative flex items-center justify-between gap-4">
-                      <h4 className="text-lg md:text-xl font-display text-white uppercase leading-none">
+                      <h4 className="text-lg uppercase leading-none text-white md:text-xl font-display">
                         {card.shortTitle}
                       </h4>
-                      <span className="text-fuchsia-100/60 text-sm transition-transform duration-300 group-hover:translate-x-1">
-                        abrir
+                      <span className="text-[11px] uppercase tracking-[0.18em] text-fuchsia-100/60 transition-transform duration-300 group-hover:translate-x-1">
+                        Abrir
                       </span>
                     </div>
                   </button>
                 </DialogTrigger>
 
-                <DialogContent className="max-w-[min(1100px,calc(100vw-2rem))] border-white/10 bg-[#09070f] text-white p-0 overflow-hidden rounded-[2rem]">
+                <DialogContent className="max-w-[min(1100px,calc(100vw-2rem))] overflow-hidden rounded-[2rem] border-white/10 bg-[#09070f] p-0 text-white">
                   <div className="relative">
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.06),transparent_24%),radial-gradient(circle_at_top_right,rgba(217,70,239,0.12),transparent_26%),linear-gradient(180deg,rgba(255,255,255,0.03),rgba(217,70,239,0.04)_54%,rgba(0,0,0,0.14))] pointer-events-none" />
-                    <div className="relative p-6 md:p-8 max-h-[85vh] overflow-y-auto">
+                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.06),transparent_24%),radial-gradient(circle_at_top_right,rgba(217,70,239,0.12),transparent_26%),linear-gradient(180deg,rgba(255,255,255,0.03),rgba(217,70,239,0.04)_54%,rgba(0,0,0,0.14))]" />
+                    <div className="relative max-h-[85vh] overflow-y-auto p-6 md:p-8">
                       <DialogHeader className="mb-6 pr-10">
-                        <div className="flex flex-wrap items-center gap-3 mb-3">
-                          <Tag value={card.tag} />
-                          <span className="text-white/45 uppercase tracking-[0.2em] text-xs">Portal lunar</span>
+                        <div className="rounded-[1.75rem] border border-white/10 bg-[linear-gradient(135deg,rgba(255,255,255,0.05),rgba(217,70,239,0.08)_56%,rgba(8,6,18,0.2))] p-5 md:p-6">
+                          <div className="mb-4 flex flex-wrap items-center gap-3">
+                            <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-black/25 text-white">
+                              <Icon className="h-5 w-5" />
+                            </div>
+                            <Tag value={card.tag} />
+                            <span className="text-xs uppercase tracking-[0.2em] text-white/45">Portal lunar</span>
+                          </div>
+                          <DialogTitle className="text-4xl uppercase leading-[0.95] text-white md:text-5xl font-display">
+                            {card.title}
+                          </DialogTitle>
+                          <DialogDescription className="mt-3 text-base leading-relaxed text-white/70 md:text-lg">
+                            {card.summary}
+                          </DialogDescription>
+                          <p className="mt-4 max-w-3xl text-sm leading-relaxed text-white/80 md:text-base">
+                            {card.openingLine}
+                          </p>
                         </div>
-                        <DialogTitle className="text-4xl md:text-5xl font-display uppercase text-white leading-[0.95]">
-                          {card.title}
-                        </DialogTitle>
-                        <DialogDescription className="text-white/70 text-base md:text-lg leading-relaxed">
-                          {card.summary}
-                        </DialogDescription>
+
+                        <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
+                          <EditorialPanel title="Ideal para consultar" items={card.consultationTopics} tone="glow" />
+                          <EditorialPanel title="Conviene tener presente" items={card.watchouts} />
+                        </div>
                       </DialogHeader>
 
                       {card.kind === 'journal' ? (
-                        <div className="grid grid-cols-1 xl:grid-cols-[1.05fr_0.95fr] gap-6">
-                          <div className="space-y-6">
-                            <section className="rounded-[1.5rem] border border-emerald-300/16 bg-emerald-500/6 p-5">
-                              <h5 className="text-emerald-100 uppercase tracking-[0.22em] text-xs mb-3">Información y evidencia disponible</h5>
-                              <div className="space-y-3">
-                                {card.scientific.map((item) => (
-                                  <p key={item} className="text-white/82 leading-relaxed">{item}</p>
-                                ))}
-                              </div>
-                            </section>
-
-                            <section className="rounded-[1.5rem] border border-fuchsia-300/16 bg-fuchsia-500/6 p-5">
-                              <h5 className="text-fuchsia-100 uppercase tracking-[0.22em] text-xs mb-3">Mirada esotérica, mística y astral</h5>
-                              <div className="space-y-3">
-                                {card.mystical.map((item) => (
-                                  <p key={item} className="text-white/82 leading-relaxed">{item}</p>
-                                ))}
-                              </div>
-                            </section>
-                          </div>
-
-                          <div className="space-y-6">
-                            <section className="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-5">
-                              <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
-                                <div>
-                                  <h5 className="text-white/92 uppercase tracking-[0.22em] text-xs mb-2">Registro real del día</h5>
-                                  <p className="text-white/64 text-sm">
-                                    {format(selectedDate, "d 'de' MMMM 'de' yyyy", { locale: es })} · {phaseName}
-                                  </p>
-                                </div>
-                                {currentEntry && (
-                                  <span className="text-[11px] uppercase tracking-[0.18em] text-sky-100 bg-sky-500/10 border border-sky-300/20 rounded-full px-3 py-1">
-                                    Guardado
-                                  </span>
-                                )}
-                              </div>
-
-                              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <label className="space-y-2">
-                                  <span className="text-white/70 text-sm">Estado emocional</span>
-                                  <input
-                                    value={journalForm.mood}
-                                    onChange={(event) => setJournalForm((prev) => ({ ...prev, mood: event.target.value }))}
-                                    placeholder="Ej. sensible, clara, dispersa"
-                                    className="w-full rounded-2xl border border-white/10 bg-black/25 px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-fuchsia-300/30"
-                                  />
-                                </label>
-                                <label className="space-y-2">
-                                  <span className="text-white/70 text-sm">Energía del 1 al 5</span>
-                                  <select
-                                    value={journalForm.energy}
-                                    onChange={(event) => setJournalForm((prev) => ({ ...prev, energy: event.target.value }))}
-                                    className="w-full rounded-2xl border border-white/10 bg-black/25 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-300/30"
-                                  >
-                                    {['1', '2', '3', '4', '5'].map((value) => (
-                                      <option key={value} value={value} className="text-black">
-                                        {value}
-                                      </option>
-                                    ))}
-                                  </select>
-                                </label>
-                                <label className="space-y-2">
-                                  <span className="text-white/70 text-sm">Calidad de sueño del 1 al 5</span>
-                                  <select
-                                    value={journalForm.sleepScore}
-                                    onChange={(event) => setJournalForm((prev) => ({ ...prev, sleepScore: event.target.value }))}
-                                    className="w-full rounded-2xl border border-white/10 bg-black/25 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-300/30"
-                                  >
-                                    {['1', '2', '3', '4', '5'].map((value) => (
-                                      <option key={value} value={value} className="text-black">
-                                        {value}
-                                      </option>
-                                    ))}
-                                  </select>
-                                </label>
-                                <label className="space-y-2 md:col-span-2">
-                                  <span className="text-white/70 text-sm">Sueño</span>
-                                  <input
-                                    value={journalForm.sleep}
-                                    onChange={(event) => setJournalForm((prev) => ({ ...prev, sleep: event.target.value }))}
-                                    placeholder="Ej. profundo, cortado, soñé mucho"
-                                    className="w-full rounded-2xl border border-white/10 bg-black/25 px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-fuchsia-300/30"
-                                  />
-                                </label>
-                                <label className="space-y-2 md:col-span-2">
-                                  <span className="text-white/70 text-sm">Cuerpo / síntomas</span>
-                                  <input
-                                    value={journalForm.body}
-                                    onChange={(event) => setJournalForm((prev) => ({ ...prev, body: event.target.value }))}
-                                    placeholder="Ej. cansancio, dolor, liviandad, foco"
-                                    className="w-full rounded-2xl border border-white/10 bg-black/25 px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-fuchsia-300/30"
-                                  />
-                                </label>
-                                <label className="space-y-2 md:col-span-2">
-                                  <span className="text-white/70 text-sm">Ritual / carta / práctica</span>
-                                  <input
-                                    value={journalForm.ritual}
-                                    onChange={(event) => setJournalForm((prev) => ({ ...prev, ritual: event.target.value }))}
-                                    placeholder="Ej. tarot, meditación, yoga, cristal, respiración"
-                                    className="w-full rounded-2xl border border-white/10 bg-black/25 px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-fuchsia-300/30"
-                                  />
-                                </label>
-                                <label className="space-y-2 md:col-span-2">
-                                  <span className="text-white/70 text-sm">Notas</span>
-                                  <textarea
-                                    value={journalForm.notes}
-                                    onChange={(event) => setJournalForm((prev) => ({ ...prev, notes: event.target.value }))}
-                                    placeholder="Anotá lo que observaste hoy"
-                                    rows={5}
-                                    className="w-full rounded-2xl border border-white/10 bg-black/25 px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-fuchsia-300/30 resize-none"
-                                  />
-                                </label>
-                              </div>
-
-                              <div className="mt-5 flex flex-wrap items-center gap-3">
-                                <button
-                                  type="button"
-                                  onClick={saveJournalEntry}
-                                  className="rounded-full bg-fuchsia-500 px-5 py-3 text-sm font-medium text-white hover:bg-fuchsia-400 transition-colors"
-                                >
-                                  Guardar registro
-                                </button>
-                                {saveFeedback && <p className="text-sm text-emerald-200">{saveFeedback}</p>}
-                              </div>
-
-                              {currentEntry && (
-                                <p className="mt-4 text-white/45 text-xs uppercase tracking-[0.18em]">
-                                  Último guardado: {format(new Date(currentEntry.savedAt), "d 'de' MMMM · HH:mm", { locale: es })}
-                                </p>
-                              )}
-                            </section>
-
-                            <section className="rounded-[1.5rem] border border-fuchsia-300/16 bg-fuchsia-500/6 p-5">
-                              <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
-                                <div>
-                                  <h5 className="text-fuchsia-100 uppercase tracking-[0.22em] text-xs mb-2">Vista histórica</h5>
-                                  <p className="text-white/58 text-sm">
-                                    {historyEntries.length > 0
-                                      ? `${historyEntries.length} registro${historyEntries.length === 1 ? '' : 's'} guardado${historyEntries.length === 1 ? '' : 's'}`
-                                      : 'Todavía no hay historial guardado.'}
-                                  </p>
-                                </div>
-                                <div className="flex flex-wrap items-center gap-2">
-                                  {(['7d', '30d', 'all'] as const).map((range) => (
-                                    <button
-                                      key={range}
-                                      type="button"
-                                      onClick={() => setHistoryRange(range)}
-                                      className={`rounded-full border px-3 py-1 text-[11px] uppercase tracking-[0.18em] transition-colors ${
-                                        historyRange === range
-                                          ? 'border-fuchsia-200/30 bg-white/90 text-[#1b1127]'
-                                          : 'border-white/12 bg-black/15 text-white/68 hover:bg-white/10'
-                                      }`}
-                                    >
-                                      {range === '7d' ? '7 días' : range === '30d' ? '30 días' : 'Todo'}
-                                    </button>
-                                  ))}
-                                </div>
-                              </div>
-
-                              {historyEntries.length > 0 ? (
-                                <div className="space-y-4">
-                                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                    <div className="rounded-2xl border border-white/10 bg-black/18 p-4">
-                                      <p className="text-[11px] uppercase tracking-[0.16em] text-white/45 mb-2">Energía media</p>
-                                      <p className="text-2xl font-display text-white">{averageEnergy ?? '-'}</p>
-                                    </div>
-                                    <div className="rounded-2xl border border-white/10 bg-black/18 p-4">
-                                      <p className="text-[11px] uppercase tracking-[0.16em] text-white/45 mb-2">Sueño medio</p>
-                                      <p className="text-2xl font-display text-white">{averageSleep ?? '-'}</p>
-                                    </div>
-                                  </div>
-
-                                  <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
-                                    <div className="space-y-2">
-                                      <p className="text-[11px] uppercase tracking-[0.16em] text-white/45">Energía</p>
-                                      {historyEntries.map((entry) => (
-                                        <div key={`${entry.savedAt}-energy`} className="flex items-center gap-3">
-                                          <div className="w-24 shrink-0 text-[11px] uppercase tracking-[0.16em] text-white/45">
-                                            {format(new Date(entry.date), 'd MMM', { locale: es })}
-                                          </div>
-                                          <div className="flex-1 h-2 rounded-full bg-white/10 overflow-hidden">
-                                            <div
-                                              className="h-full rounded-full bg-gradient-to-r from-fuchsia-400 via-sky-300 to-emerald-300"
-                                              style={{ width: `${(Number(entry.energy || 0) / 5) * 100}%` }}
-                                            />
-                                          </div>
-                                          <div className="w-8 text-right text-sm text-white/72">{entry.energy}</div>
-                                        </div>
-                                      ))}
-                                    </div>
-
-                                    <div className="space-y-2">
-                                      <p className="text-[11px] uppercase tracking-[0.16em] text-white/45">Sueño</p>
-                                      {historyEntries.map((entry) => (
-                                        <div key={`${entry.savedAt}-sleep`} className="flex items-center gap-3">
-                                          <div className="w-24 shrink-0 text-[11px] uppercase tracking-[0.16em] text-white/45">
-                                            {format(new Date(entry.date), 'd MMM', { locale: es })}
-                                          </div>
-                                          <div className="flex-1 h-2 rounded-full bg-white/10 overflow-hidden">
-                                            <div
-                                              className="h-full rounded-full bg-gradient-to-r from-amber-300 via-pink-300 to-fuchsia-300"
-                                              style={{ width: `${(Number(entry.sleepScore || 0) / 5) * 100}%` }}
-                                            />
-                                          </div>
-                                          <div className="w-8 text-right text-sm text-white/72">{entry.sleepScore ?? '-'}</div>
-                                        </div>
-                                      ))}
-                                    </div>
-                                  </div>
-
-                                  <div className="space-y-3">
-                                    {historyEntries.map((entry) => (
-                                      <div key={`${entry.savedAt}-details`} className="rounded-2xl border border-white/10 bg-black/20 p-4">
-                                        <div className="flex flex-wrap items-center justify-between gap-3 mb-2">
-                                          <p className="text-white text-sm font-medium">
-                                            {format(new Date(entry.date), "d 'de' MMMM 'de' yyyy", { locale: es })}
-                                          </p>
-                                          <span className="text-[11px] uppercase tracking-[0.16em] text-white/50">
-                                            {entry.phaseName}
-                                          </span>
-                                        </div>
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-white/74">
-                                          <p><span className="text-white/45">Estado:</span> {entry.mood || 'Sin dato'}</p>
-                                          <p><span className="text-white/45">Sueño:</span> {entry.sleep || 'Sin dato'}</p>
-                                          <p><span className="text-white/45">Calidad de sueño:</span> {entry.sleepScore || 'Sin dato'}</p>
-                                          <p><span className="text-white/45">Cuerpo:</span> {entry.body || 'Sin dato'}</p>
-                                          <p><span className="text-white/45">Ritual:</span> {entry.ritual || 'Sin dato'}</p>
-                                        </div>
-                                        {entry.notes && <p className="mt-3 text-sm text-white/68 leading-relaxed">{entry.notes}</p>}
-                                      </div>
-                                    ))}
-                                  </div>
-                                </div>
-                              ) : (
-                                <p className="text-white/60 leading-relaxed">
-                                  Cuando guardes tus primeras entradas, vas a ver acá una pequeña línea de energía y una lista
-                                  de notas recientes para empezar a reconocer tus propios patrones.
-                                </p>
-                              )}
-                            </section>
-
-                            <section className="rounded-[1.5rem] border border-sky-300/16 bg-sky-500/6 p-5">
-                              <h5 className="text-sky-100 uppercase tracking-[0.22em] text-xs mb-3">Prompt de journal</h5>
-                              <p className="text-white/88 text-lg leading-relaxed">{card.journal}</p>
-                            </section>
-                          </div>
-                        </div>
+                        <JournalContent
+                          card={card}
+                          currentEntry={currentEntry}
+                          selectedDate={selectedDate}
+                          phaseName={phaseName}
+                          journalForm={journalForm}
+                          setJournalForm={setJournalForm}
+                          saveFeedback={saveFeedback}
+                          saveJournalEntry={saveJournalEntry}
+                          historyEntries={historyEntries}
+                          historyRange={historyRange}
+                          setHistoryRange={setHistoryRange}
+                          averageEnergy={averageEnergy}
+                          averageSleep={averageSleep}
+                        />
                       ) : card.kind === 'motivation' ? (
-                        <div className="grid grid-cols-1 xl:grid-cols-[1.05fr_0.95fr] gap-6">
-                          <div className="space-y-6">
-                            <section className="rounded-[1.5rem] border border-emerald-300/16 bg-emerald-500/6 p-5">
-                              <h5 className="text-emerald-100 uppercase tracking-[0.22em] text-xs mb-3">Información y evidencia disponible</h5>
-                              <div className="space-y-3">
-                                {card.scientific.map((item) => (
-                                  <p key={item} className="text-white/82 leading-relaxed">{item}</p>
-                                ))}
-                              </div>
-                            </section>
-
-                            <section className="rounded-[1.5rem] border border-fuchsia-300/16 bg-fuchsia-500/6 p-5">
-                              <h5 className="text-fuchsia-100 uppercase tracking-[0.22em] text-xs mb-3">Mirada esotérica, mística y astral</h5>
-                              <div className="space-y-3">
-                                {card.mystical.map((item) => (
-                                  <p key={item} className="text-white/82 leading-relaxed">{item}</p>
-                                ))}
-                              </div>
-                            </section>
-                          </div>
-
-                          <div className="space-y-6">
-                            <section className="rounded-[1.5rem] border border-amber-300/16 bg-amber-500/6 p-5">
-                              <h5 className="text-amber-100 uppercase tracking-[0.22em] text-xs mb-3">Motivación de hoy</h5>
-                              <p className="text-white/55 text-sm uppercase tracking-[0.2em] mb-2">
-                                {dailyGuidance.title} · {phaseName}
-                              </p>
-                              <p className="text-white text-2xl md:text-3xl font-display leading-tight mb-4">
-                                {dailyGuidance.quote}
-                              </p>
-                              <p className="text-white/78 leading-relaxed">{dailyGuidance.intention}</p>
-                            </section>
-
-                            <section className="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-5">
-                              <h5 className="text-white/62 uppercase tracking-[0.22em] text-xs mb-3">Cómo usar esta sección</h5>
-                              <div className="space-y-3">
-                                {card.practices.map((item) => (
-                                  <p key={item} className="text-white/80 leading-relaxed">{item}</p>
-                                ))}
-                              </div>
-                            </section>
-
-                            <section className="rounded-[1.5rem] border border-sky-300/16 bg-sky-500/6 p-5">
-                              <h5 className="text-sky-100 uppercase tracking-[0.22em] text-xs mb-3">Prompt de journal</h5>
-                              <p className="text-white/88 text-lg leading-relaxed">{card.journal}</p>
-                            </section>
-                          </div>
-                        </div>
+                        <MotivationContent card={card} dailyGuidance={dailyGuidance} phaseName={phaseName} />
                       ) : (
-                        <div className="grid grid-cols-1 xl:grid-cols-[1.1fr_0.9fr] gap-6">
-                          <div className="space-y-6">
-                            <section className="rounded-[1.5rem] border border-emerald-300/16 bg-emerald-500/6 p-5">
-                              <h5 className="text-emerald-100 uppercase tracking-[0.22em] text-xs mb-3">Información y evidencia disponible</h5>
-                              <div className="space-y-3">
-                                {card.scientific.map((item) => (
-                                  <p key={item} className="text-white/82 leading-relaxed">{item}</p>
-                                ))}
-                              </div>
-                            </section>
-
-                            <section className="rounded-[1.5rem] border border-fuchsia-300/16 bg-fuchsia-500/6 p-5">
-                              <h5 className="text-fuchsia-100 uppercase tracking-[0.22em] text-xs mb-3">Mirada esotérica, mística y astral</h5>
-                              <div className="space-y-3">
-                                {card.mystical.map((item) => (
-                                  <p key={item} className="text-white/82 leading-relaxed">{item}</p>
-                                ))}
-                              </div>
-                            </section>
-                          </div>
-
-                          <div className="space-y-6">
-                            <section className="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-5">
-                              <h5 className="text-white/62 uppercase tracking-[0.22em] text-xs mb-3">Cómo usar esta sección</h5>
-                              <div className="space-y-3">
-                                {card.practices.map((item) => (
-                                  <p key={item} className="text-white/80 leading-relaxed">{item}</p>
-                                ))}
-                              </div>
-                            </section>
-
-                            <section className="rounded-[1.5rem] border border-sky-300/16 bg-sky-500/6 p-5">
-                              <h5 className="text-sky-100 uppercase tracking-[0.22em] text-xs mb-3">Prompt de journal</h5>
-                              <p className="text-white/88 text-lg leading-relaxed">{card.journal}</p>
-                            </section>
-
-                            <section className="rounded-[1.5rem] border border-amber-300/16 bg-amber-500/6 p-5">
-                              <h5 className="text-amber-100 uppercase tracking-[0.22em] text-xs mb-3">Motivación diaria</h5>
-                              <p className="text-white text-xl md:text-2xl font-display leading-tight">{card.motivation}</p>
-                            </section>
-                          </div>
-                        </div>
+                        <StandardContent card={card} />
                       )}
                     </div>
                   </div>
