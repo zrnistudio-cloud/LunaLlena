@@ -1,8 +1,9 @@
-import { useEffect, useMemo, useState } from 'react';
+import { type ReactNode, useEffect, useMemo, useState } from 'react';
 import {
   Baby,
   Bed,
   BookHeart,
+  CalendarDays,
   HeartPulse,
   MoonStar,
   Sparkles,
@@ -58,6 +59,7 @@ interface JournalEntry {
 interface MoonWellbeingSectionProps {
   selectedDate: Date;
   phaseName: string;
+  eventsContent?: ReactNode;
 }
 
 const STORAGE_KEY = 'en-luna-llena-journal';
@@ -404,25 +406,27 @@ function EditorialPanel({
   title,
   items,
   tone = 'default',
+  compact = false,
 }: {
   title: string;
   items: string[];
   tone?: 'default' | 'glow';
+  compact?: boolean;
 }) {
   return (
     <section
-      className={`rounded-[1.5rem] border p-5 ${
+      className={`rounded-[1.5rem] border ${compact ? 'p-4' : 'p-5'} ${
         tone === 'glow'
           ? 'border-fuchsia-300/18 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(217,70,239,0.08))]'
           : 'border-white/10 bg-white/[0.04]'
       }`}
     >
-      <h5 className="mb-3 text-xs uppercase tracking-[0.22em] text-white/55">{title}</h5>
-      <div className="space-y-3">
+      <h5 className={`text-xs uppercase tracking-[0.22em] text-white/55 ${compact ? 'mb-2' : 'mb-3'}`}>{title}</h5>
+      <div className={compact ? 'space-y-2' : 'space-y-3'}>
         {items.map((item) => (
           <div key={item} className="flex gap-3">
-            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-fuchsia-300/80" />
-            <p className="text-sm leading-relaxed text-white/82">{item}</p>
+            <span className={`shrink-0 rounded-full bg-fuchsia-300/80 ${compact ? 'mt-1.5 h-1.5 w-1.5' : 'mt-2 h-1.5 w-1.5'}`} />
+            <p className={`${compact ? 'text-[13px] leading-[1.45]' : 'text-sm leading-relaxed'} text-white/82`}>{item}</p>
           </div>
         ))}
       </div>
@@ -432,46 +436,46 @@ function EditorialPanel({
 
 function StandardContent({ card }: { card: PortalCard }) {
   return (
-    <div className="grid grid-cols-1 gap-6 xl:grid-cols-[1.1fr_0.9fr]">
-      <div className="space-y-6">
-        <section className="rounded-[1.5rem] border border-emerald-300/16 bg-emerald-500/6 p-5">
-          <h5 className="mb-3 text-xs uppercase tracking-[0.22em] text-emerald-100">
-            Información y evidencia disponible
-          </h5>
-          <div className="space-y-3">
-            {card.scientific.map((item) => (
-              <p key={item} className="leading-relaxed text-white/82">
-                {item}
-              </p>
-            ))}
-          </div>
+    <div className="grid grid-cols-1 gap-5 xl:grid-cols-[1.1fr_0.9fr]">
+      <div className="space-y-5">
+        <EditorialPanel title="Cómo usar esta sección" items={card.practices} compact tone="glow" />
+
+        <section className="rounded-[1.5rem] border border-sky-300/16 bg-sky-500/6 p-4">
+          <h5 className="mb-2 text-xs uppercase tracking-[0.22em] text-sky-100">Prompt de journal</h5>
+          <p className="text-base leading-[1.45] text-white/88">{card.journal}</p>
         </section>
 
-        <section className="rounded-[1.5rem] border border-fuchsia-300/16 bg-fuchsia-500/6 p-5">
-          <h5 className="mb-3 text-xs uppercase tracking-[0.22em] text-fuchsia-100">
-            Mirada esotérica, mística y astral
-          </h5>
-          <div className="space-y-3">
-            {card.mystical.map((item) => (
-              <p key={item} className="leading-relaxed text-white/82">
-                {item}
-              </p>
-            ))}
-          </div>
+        <section className="rounded-[1.5rem] border border-amber-300/16 bg-amber-500/6 p-4">
+          <h5 className="mb-2 text-xs uppercase tracking-[0.22em] text-amber-100">Motivación diaria</h5>
+          <p className="text-lg leading-tight text-white md:text-[1.4rem] font-display">{card.motivation}</p>
         </section>
       </div>
 
-      <div className="space-y-6">
-        <EditorialPanel title="Cómo usar esta sección" items={card.practices} />
-
-        <section className="rounded-[1.5rem] border border-sky-300/16 bg-sky-500/6 p-5">
-          <h5 className="mb-3 text-xs uppercase tracking-[0.22em] text-sky-100">Prompt de journal</h5>
-          <p className="text-lg leading-relaxed text-white/88">{card.journal}</p>
+      <div className="space-y-4">
+        <section className="rounded-[1.5rem] border border-emerald-300/16 bg-emerald-500/6 p-4">
+          <h5 className="mb-2 text-xs uppercase tracking-[0.22em] text-emerald-100">
+            Información y evidencia disponible
+          </h5>
+          <div className="space-y-2.5">
+            {card.scientific.map((item) => (
+              <p key={item} className="text-[13px] leading-[1.45] text-white/82">
+                {item}
+              </p>
+            ))}
+          </div>
         </section>
 
-        <section className="rounded-[1.5rem] border border-amber-300/16 bg-amber-500/6 p-5">
-          <h5 className="mb-3 text-xs uppercase tracking-[0.22em] text-amber-100">Motivación diaria</h5>
-          <p className="text-xl leading-tight text-white md:text-2xl font-display">{card.motivation}</p>
+        <section className="rounded-[1.5rem] border border-fuchsia-300/16 bg-fuchsia-500/6 p-4">
+          <h5 className="mb-2 text-xs uppercase tracking-[0.22em] text-fuchsia-100">
+            Mirada esotérica, mística y astral
+          </h5>
+          <div className="space-y-2.5">
+            {card.mystical.map((item) => (
+              <p key={item} className="text-[13px] leading-[1.45] text-white/82">
+                {item}
+              </p>
+            ))}
+          </div>
         </section>
       </div>
     </div>
@@ -488,59 +492,59 @@ function MotivationContent({
   phaseName: string;
 }) {
   return (
-    <div className="grid grid-cols-1 gap-6 xl:grid-cols-[1.05fr_0.95fr]">
-      <div className="space-y-6">
-        <section className="rounded-[1.5rem] border border-emerald-300/16 bg-emerald-500/6 p-5">
-          <h5 className="mb-3 text-xs uppercase tracking-[0.22em] text-emerald-100">
-            Información y evidencia disponible
-          </h5>
-          <div className="space-y-3">
-            {card.scientific.map((item) => (
-              <p key={item} className="leading-relaxed text-white/82">
-                {item}
-              </p>
-            ))}
-          </div>
-        </section>
-
-        <section className="rounded-[1.5rem] border border-fuchsia-300/16 bg-fuchsia-500/6 p-5">
-          <h5 className="mb-3 text-xs uppercase tracking-[0.22em] text-fuchsia-100">
-            Mirada esotérica, mística y astral
-          </h5>
-          <div className="space-y-3">
-            {card.mystical.map((item) => (
-              <p key={item} className="leading-relaxed text-white/82">
-                {item}
-              </p>
-            ))}
-          </div>
-        </section>
-
-        <EditorialPanel title="Cómo integrarlo en tu día" items={card.practices} />
-      </div>
-
-      <div className="space-y-6">
-        <section className="rounded-[1.5rem] border border-amber-300/16 bg-amber-500/6 p-5">
-          <h5 className="mb-3 text-xs uppercase tracking-[0.22em] text-amber-100">Motivación de hoy</h5>
+    <div className="grid grid-cols-1 gap-5 xl:grid-cols-[1.05fr_0.95fr]">
+      <div className="space-y-5">
+        <section className="rounded-[1.5rem] border border-amber-300/16 bg-amber-500/6 p-4">
+          <h5 className="mb-2 text-xs uppercase tracking-[0.22em] text-amber-100">Motivación de hoy</h5>
           <p className="mb-2 text-sm uppercase tracking-[0.2em] text-white/55">
             {dailyGuidance.title} · {phaseName}
           </p>
-          <p className="mb-4 text-2xl leading-tight text-white md:text-3xl font-display">
+          <p className="mb-3 text-xl leading-tight text-white md:text-[1.8rem] font-display">
             {dailyGuidance.quote}
           </p>
-          <p className="leading-relaxed text-white/78">{dailyGuidance.intention}</p>
+          <p className="text-[14px] leading-[1.5] text-white/78">{dailyGuidance.intention}</p>
         </section>
 
-        <section className="rounded-[1.5rem] border border-sky-300/16 bg-sky-500/6 p-5">
-          <h5 className="mb-3 text-xs uppercase tracking-[0.22em] text-sky-100">Prompt de journal</h5>
-          <p className="text-lg leading-relaxed text-white/88">{card.journal}</p>
+        <section className="rounded-[1.5rem] border border-sky-300/16 bg-sky-500/6 p-4">
+          <h5 className="mb-2 text-xs uppercase tracking-[0.22em] text-sky-100">Prompt de journal</h5>
+          <p className="text-base leading-[1.45] text-white/88">{card.journal}</p>
         </section>
 
-        <section className="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-5">
-          <h5 className="mb-3 text-xs uppercase tracking-[0.22em] text-white/62">
+        <section className="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-4">
+          <h5 className="mb-2 text-xs uppercase tracking-[0.22em] text-white/62">
             Motivación base de la categoría
           </h5>
-          <p className="leading-relaxed text-white/82">{card.motivation}</p>
+          <p className="text-[13px] leading-[1.45] text-white/82">{card.motivation}</p>
+        </section>
+      </div>
+
+      <div className="space-y-4">
+        <EditorialPanel title="Cómo integrarlo en tu día" items={card.practices} compact tone="glow" />
+
+        <section className="rounded-[1.5rem] border border-emerald-300/16 bg-emerald-500/6 p-4">
+          <h5 className="mb-2 text-xs uppercase tracking-[0.22em] text-emerald-100">
+            Información y evidencia disponible
+          </h5>
+          <div className="space-y-2.5">
+            {card.scientific.map((item) => (
+              <p key={item} className="text-[13px] leading-[1.45] text-white/82">
+                {item}
+              </p>
+            ))}
+          </div>
+        </section>
+
+        <section className="rounded-[1.5rem] border border-fuchsia-300/16 bg-fuchsia-500/6 p-4">
+          <h5 className="mb-2 text-xs uppercase tracking-[0.22em] text-fuchsia-100">
+            Mirada esotérica, mística y astral
+          </h5>
+          <div className="space-y-2.5">
+            {card.mystical.map((item) => (
+              <p key={item} className="text-[13px] leading-[1.45] text-white/82">
+                {item}
+              </p>
+            ))}
+          </div>
         </section>
       </div>
     </div>
@@ -577,39 +581,9 @@ function JournalContent({
   averageSleep: string | null;
 }) {
   return (
-    <div className="grid grid-cols-1 gap-6 xl:grid-cols-[1.05fr_0.95fr]">
-      <div className="space-y-6">
-        <section className="rounded-[1.5rem] border border-emerald-300/16 bg-emerald-500/6 p-5">
-          <h5 className="mb-3 text-xs uppercase tracking-[0.22em] text-emerald-100">
-            Información y evidencia disponible
-          </h5>
-          <div className="space-y-3">
-            {card.scientific.map((item) => (
-              <p key={item} className="leading-relaxed text-white/82">
-                {item}
-              </p>
-            ))}
-          </div>
-        </section>
-
-        <section className="rounded-[1.5rem] border border-fuchsia-300/16 bg-fuchsia-500/6 p-5">
-          <h5 className="mb-3 text-xs uppercase tracking-[0.22em] text-fuchsia-100">
-            Mirada esotérica, mística y astral
-          </h5>
-          <div className="space-y-3">
-            {card.mystical.map((item) => (
-              <p key={item} className="leading-relaxed text-white/82">
-                {item}
-              </p>
-            ))}
-          </div>
-        </section>
-
-        <EditorialPanel title="Usos sugeridos en consulta o práctica" items={card.practices} />
-      </div>
-
-      <div className="space-y-6">
-        <section className="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-5">
+    <div className="grid grid-cols-1 gap-5 xl:grid-cols-[1.05fr_0.95fr]">
+      <div className="space-y-5">
+        <section className="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-4">
           <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
             <div>
               <h5 className="mb-2 text-xs uppercase tracking-[0.22em] text-white/92">Registro real del día</h5>
@@ -624,14 +598,14 @@ function JournalContent({
             )}
           </div>
 
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
             <label className="space-y-2">
               <span className="text-sm text-white/70">Estado emocional</span>
               <input
                 value={journalForm.mood}
                 onChange={(event) => setJournalForm((prev) => ({ ...prev, mood: event.target.value }))}
                 placeholder="Ej. sensible, clara, dispersa"
-                className="w-full rounded-2xl border border-white/10 bg-black/25 px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-fuchsia-300/30"
+                className="w-full rounded-2xl border border-white/10 bg-black/25 px-4 py-2.5 text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-fuchsia-300/30"
               />
             </label>
 
@@ -640,7 +614,7 @@ function JournalContent({
               <select
                 value={journalForm.energy}
                 onChange={(event) => setJournalForm((prev) => ({ ...prev, energy: event.target.value }))}
-                className="w-full rounded-2xl border border-white/10 bg-black/25 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-300/30"
+                className="w-full rounded-2xl border border-white/10 bg-black/25 px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-300/30"
               >
                 {['1', '2', '3', '4', '5'].map((value) => (
                   <option key={value} value={value} className="text-black">
@@ -655,7 +629,7 @@ function JournalContent({
               <select
                 value={journalForm.sleepScore}
                 onChange={(event) => setJournalForm((prev) => ({ ...prev, sleepScore: event.target.value }))}
-                className="w-full rounded-2xl border border-white/10 bg-black/25 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-300/30"
+                className="w-full rounded-2xl border border-white/10 bg-black/25 px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-300/30"
               >
                 {['1', '2', '3', '4', '5'].map((value) => (
                   <option key={value} value={value} className="text-black">
@@ -671,7 +645,7 @@ function JournalContent({
                 value={journalForm.sleep}
                 onChange={(event) => setJournalForm((prev) => ({ ...prev, sleep: event.target.value }))}
                 placeholder="Ej. profundo, cortado, soñé mucho"
-                className="w-full rounded-2xl border border-white/10 bg-black/25 px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-fuchsia-300/30"
+                className="w-full rounded-2xl border border-white/10 bg-black/25 px-4 py-2.5 text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-fuchsia-300/30"
               />
             </label>
 
@@ -681,7 +655,7 @@ function JournalContent({
                 value={journalForm.body}
                 onChange={(event) => setJournalForm((prev) => ({ ...prev, body: event.target.value }))}
                 placeholder="Ej. cansancio, dolor, liviandad, foco"
-                className="w-full rounded-2xl border border-white/10 bg-black/25 px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-fuchsia-300/30"
+                className="w-full rounded-2xl border border-white/10 bg-black/25 px-4 py-2.5 text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-fuchsia-300/30"
               />
             </label>
 
@@ -691,7 +665,7 @@ function JournalContent({
                 value={journalForm.ritual}
                 onChange={(event) => setJournalForm((prev) => ({ ...prev, ritual: event.target.value }))}
                 placeholder="Ej. tarot, meditación, yoga, cristal, respiración"
-                className="w-full rounded-2xl border border-white/10 bg-black/25 px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-fuchsia-300/30"
+                className="w-full rounded-2xl border border-white/10 bg-black/25 px-4 py-2.5 text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-fuchsia-300/30"
               />
             </label>
 
@@ -702,7 +676,7 @@ function JournalContent({
                 onChange={(event) => setJournalForm((prev) => ({ ...prev, notes: event.target.value }))}
                 placeholder="Anotá lo que observaste hoy"
                 rows={5}
-                className="w-full resize-none rounded-2xl border border-white/10 bg-black/25 px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-fuchsia-300/30"
+                className="w-full resize-none rounded-2xl border border-white/10 bg-black/25 px-4 py-2.5 text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-fuchsia-300/30"
               />
             </label>
           </div>
@@ -725,7 +699,7 @@ function JournalContent({
           )}
         </section>
 
-        <section className="rounded-[1.5rem] border border-fuchsia-300/16 bg-fuchsia-500/6 p-5">
+        <section className="rounded-[1.5rem] border border-fuchsia-300/16 bg-fuchsia-500/6 p-4">
           <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
             <div>
               <h5 className="mb-2 text-xs uppercase tracking-[0.22em] text-fuchsia-100">Vista histórica</h5>
@@ -835,16 +809,50 @@ function JournalContent({
           )}
         </section>
 
-        <section className="rounded-[1.5rem] border border-sky-300/16 bg-sky-500/6 p-5">
-          <h5 className="mb-3 text-xs uppercase tracking-[0.22em] text-sky-100">Prompt de journal</h5>
-          <p className="text-lg leading-relaxed text-white/88">{card.journal}</p>
+        <section className="rounded-[1.5rem] border border-sky-300/16 bg-sky-500/6 p-4">
+          <h5 className="mb-2 text-xs uppercase tracking-[0.22em] text-sky-100">Prompt de journal</h5>
+          <p className="text-base leading-[1.45] text-white/88">{card.journal}</p>
+        </section>
+      </div>
+
+      <div className="space-y-4">
+        <EditorialPanel title="Usos sugeridos en consulta o práctica" items={card.practices} compact tone="glow" />
+
+        <section className="rounded-[1.5rem] border border-emerald-300/16 bg-emerald-500/6 p-4">
+          <h5 className="mb-2 text-xs uppercase tracking-[0.22em] text-emerald-100">
+            Información y evidencia disponible
+          </h5>
+          <div className="space-y-2.5">
+            {card.scientific.map((item) => (
+              <p key={item} className="text-[13px] leading-[1.45] text-white/82">
+                {item}
+              </p>
+            ))}
+          </div>
+        </section>
+
+        <section className="rounded-[1.5rem] border border-fuchsia-300/16 bg-fuchsia-500/6 p-4">
+          <h5 className="mb-2 text-xs uppercase tracking-[0.22em] text-fuchsia-100">
+            Mirada esotérica, mística y astral
+          </h5>
+          <div className="space-y-2.5">
+            {card.mystical.map((item) => (
+              <p key={item} className="text-[13px] leading-[1.45] text-white/82">
+                {item}
+              </p>
+            ))}
+          </div>
         </section>
       </div>
     </div>
   );
 }
 
-export function MoonWellbeingSection({ selectedDate, phaseName }: MoonWellbeingSectionProps) {
+export function MoonWellbeingSection({
+  selectedDate,
+  phaseName,
+  eventsContent,
+}: MoonWellbeingSectionProps) {
   const dateKey = useMemo(() => format(selectedDate, 'yyyy-MM-dd'), [selectedDate]);
   const [journalEntries, setJournalEntries] = useState<Record<string, JournalEntry>>({});
   const [journalForm, setJournalForm] = useState(emptyJournalState);
@@ -961,7 +969,7 @@ export function MoonWellbeingSection({ selectedDate, phaseName }: MoonWellbeingS
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
           {cards.map((card) => {
             const Icon = card.icon;
 
@@ -970,42 +978,37 @@ export function MoonWellbeingSection({ selectedDate, phaseName }: MoonWellbeingS
                 <DialogTrigger asChild>
                   <button
                     type="button"
-                    className="group relative overflow-hidden rounded-[999px] border border-white/12 bg-white/[0.05] px-5 py-4 text-left transition-all duration-300 hover:border-fuchsia-300/28 hover:bg-white/[0.08]"
+                    className="group relative overflow-hidden rounded-[999px] border border-white/12 bg-white/[0.05] px-5 py-4 text-left transition-all duration-300 hover:border-fuchsia-300/28 hover:bg-white/[0.08] min-h-[76px]"
                   >
                     <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.04),transparent_36%,rgba(217,70,239,0.06))]" />
-                    <div className="relative flex items-center justify-between gap-4">
+                    <div className="relative flex items-center gap-4">
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-black/20 text-white">
+                        <Icon className="h-5 w-5" />
+                      </div>
                       <h4 className="text-lg uppercase leading-none text-white md:text-xl font-display">
                         {card.shortTitle}
                       </h4>
-                      <span className="text-[11px] uppercase tracking-[0.18em] text-fuchsia-100/60 transition-transform duration-300 group-hover:translate-x-1">
-                        Abrir
-                      </span>
                     </div>
                   </button>
                 </DialogTrigger>
 
-                <DialogContent className="max-w-[min(1100px,calc(100vw-2rem))] overflow-hidden rounded-[2rem] border-white/10 bg-[#09070f] p-0 text-white">
+                <DialogContent className="h-[100dvh] w-[100vw] max-w-none overflow-hidden rounded-none border-white/10 bg-[#09070f] p-0 text-white sm:h-[calc(100dvh-1rem)] sm:w-[calc(100vw-1rem)] sm:max-w-[calc(100vw-1rem)] sm:rounded-[2rem] xl:w-[calc(100vw-2rem)] xl:max-w-[1720px]">
                   <div className="relative">
                     <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.06),transparent_24%),radial-gradient(circle_at_top_right,rgba(217,70,239,0.12),transparent_26%),linear-gradient(180deg,rgba(255,255,255,0.03),rgba(217,70,239,0.04)_54%,rgba(0,0,0,0.14))]" />
-                    <div className="relative max-h-[85vh] overflow-y-auto p-6 md:p-8">
+                    <div className="relative h-[100dvh] overflow-y-auto p-4 sm:h-[calc(100dvh-1rem)] sm:p-6 md:p-8">
                       <DialogHeader className="mb-6 pr-10">
-                        <div className="rounded-[1.75rem] border border-white/10 bg-[linear-gradient(135deg,rgba(255,255,255,0.05),rgba(217,70,239,0.08)_56%,rgba(8,6,18,0.2))] p-5 md:p-6">
-                          <div className="mb-4 flex flex-wrap items-center gap-3">
-                            <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-black/25 text-white">
-                              <Icon className="h-5 w-5" />
+                        <div className="rounded-[1.75rem] border border-white/10 bg-[linear-gradient(135deg,rgba(255,255,255,0.05),rgba(217,70,239,0.08)_56%,rgba(8,6,18,0.2))] p-4 shadow-[0_18px_35px_rgba(8,6,18,0.12)] backdrop-blur-xl md:p-5">
+                          <div className="flex items-center justify-between gap-4">
+                            <div className="flex min-w-0 items-center gap-3">
+                              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-black/25 text-white">
+                                <Icon className="h-5 w-5" />
+                              </div>
+                              <DialogTitle className="truncate text-[1.45rem] uppercase leading-none tracking-tight text-white md:text-[2.05rem] font-display">
+                                {card.title}
+                              </DialogTitle>
                             </div>
                             <Tag value={card.tag} />
-                            <span className="text-xs uppercase tracking-[0.2em] text-white/45">Portal lunar</span>
                           </div>
-                          <DialogTitle className="text-4xl uppercase leading-[0.95] text-white md:text-5xl font-display">
-                            {card.title}
-                          </DialogTitle>
-                          <DialogDescription className="mt-3 text-base leading-relaxed text-white/70 md:text-lg">
-                            {card.summary}
-                          </DialogDescription>
-                          <p className="mt-4 max-w-3xl text-sm leading-relaxed text-white/80 md:text-base">
-                            {card.openingLine}
-                          </p>
                         </div>
 
                         <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -1041,6 +1044,49 @@ export function MoonWellbeingSection({ selectedDate, phaseName }: MoonWellbeingS
               </Dialog>
             );
           })}
+
+          <Dialog>
+            <DialogTrigger asChild>
+              <button
+                type="button"
+                className="group relative overflow-hidden rounded-[999px] border border-white/12 bg-white/[0.05] px-5 py-4 text-left transition-all duration-300 hover:border-fuchsia-300/28 hover:bg-white/[0.08] min-h-[76px]"
+              >
+                <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.04),transparent_36%,rgba(217,70,239,0.06))]" />
+                <div className="relative flex items-center gap-4">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-black/20 text-white">
+                    <CalendarDays className="h-5 w-5" />
+                  </div>
+                  <h4 className="text-lg uppercase leading-none text-white md:text-xl font-display">
+                    Eventos
+                  </h4>
+                </div>
+              </button>
+            </DialogTrigger>
+
+            <DialogContent className="h-[100dvh] w-[100vw] max-w-none overflow-hidden rounded-none border-black/8 bg-white p-0 text-black sm:h-[calc(100dvh-1rem)] sm:w-[calc(100vw-1rem)] sm:max-w-[calc(100vw-1rem)] sm:rounded-[2rem] xl:w-[calc(100vw-2rem)] xl:max-w-[1760px]">
+              <div className="relative h-full overflow-hidden">
+                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.85),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(217,70,239,0.08),transparent_34%),linear-gradient(180deg,rgba(255,255,255,0.86),rgba(255,255,255,0.96))]" />
+                <div className="relative h-full overflow-y-auto px-4 py-6 sm:px-5 sm:py-8 md:px-8 md:py-10">
+                  <div className="mb-6 rounded-[1.75rem] border border-[#ead6e6] bg-[linear-gradient(135deg,rgba(255,255,255,0.96),rgba(244,223,241,0.95)_54%,rgba(255,255,255,0.98))] p-4 shadow-[0_18px_35px_rgba(22,10,24,0.08)] backdrop-blur-xl md:p-5">
+                    <div className="flex items-center justify-between gap-4">
+                      <div className="flex min-w-0 items-center gap-3">
+                        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-[#e6d6e3] bg-white text-[#1a141d]">
+                          <CalendarDays className="h-5 w-5" />
+                        </div>
+                        <h3 className="truncate text-[1.5rem] font-display uppercase leading-none tracking-tight text-black md:text-[2.1rem]">
+                          Eventos bajo la Luna
+                        </h3>
+                      </div>
+                      <span className="inline-flex items-center rounded-full border border-[#e6c5e0] bg-[#f1d8ee] px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-[#72546c]">
+                        Agenda lunar
+                      </span>
+                    </div>
+                  </div>
+                  {eventsContent}
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
     </section>

@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { getMoonPhase } from '@/utils/moonPhases';
@@ -19,18 +18,7 @@ interface MoonParticleAnimationProps {
 
 type SkyTab = 'sunset' | 'moon';
 
-const phaseSequence = [
-  'Luna Nueva',
-  'Luna Creciente',
-  'Cuarto Creciente',
-  'Luna Gibosa Creciente',
-  'Luna Llena',
-  'Luna Gibosa Menguante',
-  'Cuarto Menguante',
-  'Luna Menguante',
-] as const;
-
-const phaseAssetMap: Record<(typeof phaseSequence)[number], string> = {
+const phaseAssetMap = {
   'Luna Nueva': lunaNuevaSvg,
   'Luna Creciente': lunaCrecienteSvg,
   'Cuarto Creciente': primerTrimestreSvg,
@@ -39,53 +27,14 @@ const phaseAssetMap: Record<(typeof phaseSequence)[number], string> = {
   'Luna Gibosa Menguante': gibosaMenguanteSvg,
   'Cuarto Menguante': ultimoTrimestreSvg,
   'Luna Menguante': lunaMenguanteSvg,
-};
-
-const INTRO_STEP_MS = 960;
-const INTRO_SETTLE_MS = 220;
+} as const;
 
 export function MoonParticleAnimation({ date, onDateChange, mode }: MoonParticleAnimationProps) {
   const isSunset = mode === 'sunset';
   const moonPhase = getMoonPhase(date);
-  const [displayPhase, setDisplayPhase] = useState<string>(moonPhase.phaseName);
-  const [isIntroPlaying, setIsIntroPlaying] = useState(true);
-  const moonImage = phaseAssetMap[(displayPhase in phaseAssetMap ? displayPhase : moonPhase.phaseName) as keyof typeof phaseAssetMap] ?? lunaLlenaSvg;
+  const displayPhase = moonPhase.phaseName in phaseAssetMap ? moonPhase.phaseName : 'Luna Llena';
+  const moonImage = phaseAssetMap[displayPhase as keyof typeof phaseAssetMap] ?? lunaLlenaSvg;
   const isNewMoon = displayPhase === 'Luna Nueva';
-
-  useEffect(() => {
-    let timeoutId: number | undefined;
-    let intervalId: number | undefined;
-    let index = 0;
-
-    setIsIntroPlaying(true);
-    setDisplayPhase(phaseSequence[0]);
-
-    intervalId = window.setInterval(() => {
-      index += 1;
-
-      if (index >= phaseSequence.length) {
-        if (intervalId) window.clearInterval(intervalId);
-        setDisplayPhase(moonPhase.phaseName);
-        timeoutId = window.setTimeout(() => {
-          setIsIntroPlaying(false);
-        }, INTRO_SETTLE_MS);
-        return;
-      }
-
-      setDisplayPhase(phaseSequence[index]);
-    }, INTRO_STEP_MS);
-
-    return () => {
-      if (intervalId) window.clearInterval(intervalId);
-      if (timeoutId) window.clearTimeout(timeoutId);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!isIntroPlaying) {
-      setDisplayPhase(moonPhase.phaseName);
-    }
-  }, [isIntroPlaying, moonPhase.phaseName]);
 
   const moveDay = (offset: number) => {
     const nextDate = new Date(date);

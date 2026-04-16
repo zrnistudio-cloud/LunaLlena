@@ -24,14 +24,14 @@ export function EventsSection({ activities, searchLocation, selectedDate }: Even
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {searchLocation && (
         <div className="max-w-3xl">
           <p className="text-black/75 leading-relaxed">Mostrando resultados para {searchLocation} dentro de la agenda curada del proyecto.</p>
         </div>
       )}
 
-      <div className="space-y-4">
+      <div className="space-y-6">
         <div className="flex flex-wrap items-center gap-3">
           <h4 className="text-[2.2rem] font-display text-black uppercase leading-none">Actividades destacadas</h4>
           <span className="text-xs text-[#72546c] bg-[#f1d8ee] border border-[#e6c5e0] px-3 py-1 rounded-full">
@@ -39,18 +39,18 @@ export function EventsSection({ activities, searchLocation, selectedDate }: Even
           </span>
         </div>
 
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 gap-8 xl:grid-cols-2">
           {activities.map((activity, index) => (
             <motion.article
               key={activity.id}
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45, delay: index * 0.08 }}
-              className="relative overflow-hidden rounded-[1.35rem] border border-[#d6d1d8] bg-[#efedf1] p-6"
+              className="relative overflow-hidden rounded-[1.5rem] border border-[#d6d1d8] bg-[#efedf1] p-7 md:p-8"
             >
               <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.42),transparent_38%,rgba(0,0,0,0.02))] pointer-events-none" />
 
-              <div className="relative space-y-4">
+              <div className="relative space-y-5">
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <p className="text-xs uppercase tracking-[0.24em] text-[#8a8390] mb-2">Actividad del mes</p>

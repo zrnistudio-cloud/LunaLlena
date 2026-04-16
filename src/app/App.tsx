@@ -80,29 +80,27 @@ export default function App() {
             <MoonWellbeingSection
               selectedDate={selectedDate}
               phaseName={moonPhase.phaseName}
+              eventsContent={
+                <>
+                  <EventSearch
+                    onSearch={setSearchLocation}
+                    onMonthChange={setSelectedDate}
+                    searchLocation={searchLocation}
+                    selectedDate={selectedDate}
+                    phaseName={moonPhase.phaseName}
+                    cityOptions={cityOptions}
+                    compact
+                  />
+
+                  <EventsSection
+                    activities={filteredActivities}
+                    searchLocation={searchLocation}
+                    selectedDate={selectedDate}
+                  />
+                </>
+              }
             />
           </div>
-
-          <section className="relative overflow-hidden rounded-[2rem] border border-black/8 bg-white shadow-[0_24px_90px_rgba(12,4,18,0.18)] backdrop-blur-xl mb-12">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.85),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(217,70,239,0.08),transparent_34%),linear-gradient(180deg,rgba(255,255,255,0.86),rgba(255,255,255,0.96))] pointer-events-none" />
-            <div className="absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-fuchsia-300/35 to-transparent pointer-events-none" />
-            <div className="relative px-5 py-8 md:px-8 md:py-10">
-              <EventSearch
-                onSearch={setSearchLocation}
-                onMonthChange={setSelectedDate}
-                searchLocation={searchLocation}
-                selectedDate={selectedDate}
-                phaseName={moonPhase.phaseName}
-                cityOptions={cityOptions}
-              />
-
-              <EventsSection
-                activities={filteredActivities}
-                searchLocation={searchLocation}
-                selectedDate={selectedDate}
-              />
-            </div>
-          </section>
         </div>
       </div>
     </div>
