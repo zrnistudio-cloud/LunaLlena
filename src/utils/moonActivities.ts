@@ -208,6 +208,13 @@ export function getCityOptions(params: { month?: number; year?: number }): strin
   );
 }
 
+export function getProvinceOptions(params: { month?: number; year?: number }): string[] {
+  const filtered = filterMoonActivities(params);
+  return Array.from(new Set(filtered.map((activity) => activity.province))).sort((a, b) =>
+    a.localeCompare(b, 'es'),
+  );
+}
+
 export function formatActivityDate(date: string): string {
   return format(new Date(date), "d 'de' MMMM · HH:mm", { locale: es });
 }

@@ -10,8 +10,9 @@ import lunaNuevaSvg from '@/assets/fases/luna nueva.svg';
 import primerTrimestreSvg from '@/assets/fases/Primer trimestre.svg';
 import ultimoTrimestreSvg from '@/assets/fases/Ultimo trimestre.svg';
 
-export function MoonGuide() {
+export function MoonGuide({ themeMode = 'moon' }: { themeMode?: 'sunset' | 'moon' }) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const isSunset = themeMode === 'sunset';
 
   const phases = [
     ['Luna Nueva', lunaNuevaSvg, 'Es el punto de reinicio del ciclo: la Luna queda visualmente muy tenue y el cielo se vuelve ideal para mirar estrellas.'],
@@ -28,18 +29,22 @@ export function MoonGuide() {
     <div className="w-full mx-auto">
       <motion.button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="w-full flex items-center justify-between px-5 py-3 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 hover:bg-white/15 transition-all duration-300 group"
+        className={`group flex w-full items-center justify-between rounded-xl border px-5 py-3 backdrop-blur-sm transition-all duration-300 ${
+          isSunset
+            ? 'border-[#efcfdf] bg-white/85 hover:bg-[#fff3fa]'
+            : 'border-white/20 bg-white/10 hover:bg-white/15'
+        }`}
         whileHover={{ scale: 1.01 }}
         whileTap={{ scale: 0.99 }}
       >
         <div className="flex items-center gap-3">
-          <Moon className="w-4 h-4 text-gray-300" />
-          <span className="text-sm text-white font-medium">Las fases de la Luna</span>
+          <Moon className={`h-4 w-4 ${isSunset ? 'text-[#7e5d77]' : 'text-gray-300'}`} />
+          <span className={`text-sm font-medium ${isSunset ? 'text-[#1f1622]' : 'text-white'}`}>Las fases de la Luna</span>
         </div>
         {isExpanded ? (
-          <ChevronUp className="w-4 h-4 text-gray-300 group-hover:-translate-y-0.5 transition-transform" />
+          <ChevronUp className={`h-4 w-4 transition-transform group-hover:-translate-y-0.5 ${isSunset ? 'text-[#7e5d77]' : 'text-gray-300'}`} />
         ) : (
-          <ChevronDown className="w-4 h-4 text-gray-300 group-hover:translate-y-0.5 transition-transform" />
+          <ChevronDown className={`h-4 w-4 transition-transform group-hover:translate-y-0.5 ${isSunset ? 'text-[#7e5d77]' : 'text-gray-300'}`} />
         )}
       </motion.button>
 
@@ -52,15 +57,26 @@ export function MoonGuide() {
             transition={{ duration: 0.3 }}
             className="overflow-hidden"
           >
-            <div className="mt-4 rounded-3xl border border-white/10 bg-white/[0.05] backdrop-blur-xl p-6 md:p-8">
+            <div
+              className={`mt-4 rounded-3xl border p-6 backdrop-blur-xl md:p-8 ${
+                isSunset
+                  ? 'border-[#efcfdf] bg-[linear-gradient(135deg,rgba(255,251,253,0.97),rgba(250,235,244,0.95)_58%,rgba(255,255,255,0.97))] shadow-[0_24px_50px_rgba(64,24,48,0.08)]'
+                  : 'border-white/10 bg-white/[0.05]'
+              }`}
+            >
               <div className="mb-6">
-                <p className="text-gray-400 uppercase tracking-[0.2em] text-xs mb-2">Guia lunar</p>
-                <h3 className="text-3xl md:text-4xl font-display text-white">Cuál es cuál?</h3>
+                <p className={`mb-2 text-xs uppercase tracking-[0.2em] ${isSunset ? 'text-[#8f7489]' : 'text-gray-400'}`}>Guia lunar</p>
+                <h3 className={`text-3xl font-display md:text-4xl ${isSunset ? 'text-[#1f1622]' : 'text-white'}`}>Cuál es cuál?</h3>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {phases.map(([title, image, text]) => (
-                  <div key={title} className="rounded-2xl border border-white/10 bg-black/20 p-5">
+                  <div
+                    key={title}
+                    className={`rounded-2xl border p-5 ${
+                      isSunset ? 'border-[#eed8e5] bg-white/78' : 'border-white/10 bg-black/20'
+                    }`}
+                  >
                     <div className="flex items-start gap-4">
                       <img
                         src={image}
@@ -69,8 +85,8 @@ export function MoonGuide() {
                         style={{ opacity: title === 'Luna Nueva' ? 0.5 : 1 }}
                       />
                       <div>
-                        <h4 className="text-white text-2xl font-display uppercase mb-2">{title}</h4>
-                        <p className="text-gray-300 leading-relaxed">{text}</p>
+                        <h4 className={`mb-2 text-2xl font-display uppercase ${isSunset ? 'text-[#1f1622]' : 'text-white'}`}>{title}</h4>
+                        <p className={`leading-relaxed ${isSunset ? 'text-[#4f4256]' : 'text-gray-300'}`}>{text}</p>
                       </div>
                     </div>
                   </div>

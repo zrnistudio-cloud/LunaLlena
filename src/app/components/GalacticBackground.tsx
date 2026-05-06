@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { motion } from 'motion/react';
 import sunsetMountains from '@/assets/sunset-mountains.jpg';
 
 interface Star {
@@ -277,33 +278,106 @@ export function GalacticBackground({ mode = 'moon' }: GalacticBackgroundProps) {
 
   return (
     <>
-      {isSunset && (
-        <>
-          <div
-            className="fixed inset-0 h-full w-full object-cover"
-            style={{
-              zIndex: 0,
-              backgroundImage: `linear-gradient(180deg, rgba(8, 10, 28, 0.18) 0%, rgba(24, 18, 36, 0.1) 28%, rgba(255, 155, 102, 0.08) 72%, rgba(6, 7, 18, 0.2) 100%), url(${sunsetMountains})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center center',
-              backgroundRepeat: 'no-repeat',
-            }}
-          />
-          <div
-            className="fixed inset-0"
-            style={{
-              zIndex: 0,
-              background:
-                'linear-gradient(180deg, rgba(10,12,32,0.14) 0%, rgba(42,22,38,0.08) 32%, rgba(255,163,110,0.06) 68%, rgba(10,8,20,0.16) 100%)',
-            }}
-          />
-        </>
-      )}
+      <motion.div
+        aria-hidden="true"
+        className="fixed inset-0 h-full w-full object-cover"
+        initial={false}
+        animate={{
+          opacity: isSunset ? 1 : 0,
+          scale: isSunset ? 1.035 : 1.055,
+          filter: isSunset
+            ? 'blur(0px) saturate(1.12) contrast(1.05) brightness(0.96)'
+            : 'blur(6px) saturate(0.92)',
+        }}
+        transition={{ duration: 0.9, ease: 'easeInOut' }}
+        style={{
+          zIndex: 0,
+          backgroundImage: `linear-gradient(180deg, rgba(8, 10, 28, 0.1) 0%, rgba(24, 18, 36, 0.04) 26%, rgba(255, 155, 102, 0.06) 68%, rgba(6, 7, 18, 0.18) 100%), url(${sunsetMountains})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center 58%',
+          backgroundRepeat: 'no-repeat',
+          transformOrigin: 'center center',
+        }}
+      />
 
-      <canvas
+      <motion.div
+        aria-hidden="true"
+        className="fixed inset-0"
+        initial={false}
+        animate={{
+          opacity: isSunset ? 1 : 0,
+          background:
+            'radial-gradient(circle at 50% 74%, rgba(255, 199, 135, 0.46) 0%, rgba(255, 169, 108, 0.24) 18%, rgba(255, 169, 108, 0.08) 34%, rgba(255, 169, 108, 0) 56%)',
+        }}
+        transition={{ duration: 0.95, ease: 'easeInOut' }}
+        style={{ zIndex: 0 }}
+      />
+
+      <motion.div
+        aria-hidden="true"
+        className="fixed inset-0"
+        initial={false}
+        animate={{
+          opacity: isSunset ? 1 : 0,
+          background:
+            'linear-gradient(180deg, rgba(13,18,46,0.18) 0%, rgba(77,56,92,0.10) 24%, rgba(245,153,112,0.08) 54%, rgba(255,214,168,0.14) 76%, rgba(8,7,17,0.26) 100%)',
+        }}
+        transition={{ duration: 0.8, ease: 'easeInOut' }}
+        style={{ zIndex: 0, mixBlendMode: 'screen' }}
+      />
+
+      <motion.div
+        aria-hidden="true"
+        className="fixed inset-0"
+        initial={false}
+        animate={{
+          opacity: isSunset ? 1 : 0,
+          background:
+            'linear-gradient(180deg, rgba(10,12,32,0.14) 0%, rgba(42,22,38,0.08) 32%, rgba(255,163,110,0.06) 68%, rgba(10,8,20,0.16) 100%)',
+        }}
+        transition={{ duration: 0.8, ease: 'easeInOut' }}
+        style={{ zIndex: 0 }}
+      />
+
+      <motion.div
+        aria-hidden="true"
+        className="fixed inset-x-0 bottom-0 h-[34vh]"
+        initial={false}
+        animate={{
+          opacity: isSunset ? 1 : 0,
+          y: isSunset ? 0 : 20,
+        }}
+        transition={{ duration: 0.85, ease: 'easeInOut' }}
+        style={{
+          zIndex: 0,
+          background:
+            'linear-gradient(180deg, rgba(20,16,34,0) 0%, rgba(13,10,22,0.22) 28%, rgba(8,7,14,0.52) 72%, rgba(3,3,7,0.82) 100%)',
+        }}
+      />
+
+      <motion.div
+        aria-hidden="true"
+        className="fixed inset-0"
+        initial={false}
+        animate={{
+          opacity: isSunset ? 0 : 1,
+          background:
+            'radial-gradient(circle at 50% 28%, rgba(126,150,255,0.08) 0%, rgba(14,18,35,0) 38%), linear-gradient(180deg, rgba(3,5,16,0.08) 0%, rgba(2,3,9,0.22) 100%)',
+        }}
+        transition={{ duration: 0.8, ease: 'easeInOut' }}
+        style={{ zIndex: 0 }}
+      />
+
+      <motion.canvas
         ref={canvasRef}
         className="fixed inset-0 w-full h-full"
-        style={{ zIndex: 0, opacity: isSunset ? 0.08 : 1 }}
+        initial={false}
+        animate={{
+          opacity: isSunset ? 0.12 : 1,
+          scale: isSunset ? 1.01 : 1,
+        }}
+        transition={{ duration: 0.85, ease: 'easeInOut' }}
+        style={{ zIndex: 0 }}
       />
     </>
   );

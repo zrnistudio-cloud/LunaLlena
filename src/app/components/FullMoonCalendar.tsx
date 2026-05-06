@@ -5,10 +5,12 @@ import { getFullMoonsForYear } from '@/utils/moonPhases';
 
 interface FullMoonCalendarProps {
   currentDate: Date;
+  themeMode?: 'sunset' | 'moon';
 }
 
-export function FullMoonCalendar({ currentDate }: FullMoonCalendarProps) {
+export function FullMoonCalendar({ currentDate, themeMode = 'moon' }: FullMoonCalendarProps) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const isSunset = themeMode === 'sunset';
   const currentYear = currentDate.getFullYear();
   const fullMoonDays = useMemo(
     () => getFullMoonsForYear(currentYear, currentDate),
@@ -19,21 +21,29 @@ export function FullMoonCalendar({ currentDate }: FullMoonCalendarProps) {
     <div className="w-full mx-auto">
       <motion.button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="w-full flex items-center justify-between px-5 py-3 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 hover:bg-white/15 transition-all duration-300 group"
+        className={`group flex w-full items-center justify-between rounded-xl border px-5 py-3 backdrop-blur-sm transition-all duration-300 ${
+          isSunset
+            ? 'border-[#efcfdf] bg-white/85 hover:bg-[#fff3fa]'
+            : 'border-white/20 bg-white/10 hover:bg-white/15'
+        }`}
         whileHover={{ scale: 1.01 }}
         whileTap={{ scale: 0.99 }}
       >
         <div className="flex items-center gap-3">
-          <Moon className="w-4 h-4 text-gray-300" />
-          <span className="text-sm text-white font-medium">Ver Lunas Llenas del Año</span>
-          <span className="text-xs text-gray-400 bg-white/10 px-2 py-0.5 rounded-full">
+          <Moon className={`h-4 w-4 ${isSunset ? 'text-[#7e5d77]' : 'text-gray-300'}`} />
+          <span className={`text-sm font-medium ${isSunset ? 'text-[#1f1622]' : 'text-white'}`}>Ver Lunas Llenas del Año</span>
+          <span
+            className={`rounded-full px-2 py-0.5 text-xs ${
+              isSunset ? 'bg-[#f6dcea] text-[#8f7489]' : 'bg-white/10 text-gray-400'
+            }`}
+          >
             {fullMoonDays.length}
           </span>
         </div>
         {isExpanded ? (
-          <ChevronUp className="w-4 h-4 text-gray-300 group-hover:-translate-y-0.5 transition-transform" />
+          <ChevronUp className={`h-4 w-4 transition-transform group-hover:-translate-y-0.5 ${isSunset ? 'text-[#7e5d77]' : 'text-gray-300'}`} />
         ) : (
-          <ChevronDown className="w-4 h-4 text-gray-300 group-hover:translate-y-0.5 transition-transform" />
+          <ChevronDown className={`h-4 w-4 transition-transform group-hover:translate-y-0.5 ${isSunset ? 'text-[#7e5d77]' : 'text-gray-300'}`} />
         )}
       </motion.button>
 
@@ -46,9 +56,13 @@ export function FullMoonCalendar({ currentDate }: FullMoonCalendarProps) {
             transition={{ duration: 0.3 }}
             className="overflow-hidden"
           >
-            <div className="mt-4 bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+            <div
+              className={`mt-4 rounded-xl border p-4 backdrop-blur-sm ${
+                isSunset ? 'border-[#efcfdf] bg-white/88' : 'border-white/20 bg-white/10'
+              }`}
+            >
               <div className="text-center mb-3">
-                <p className="text-xs text-gray-400">Lunas Llenas {currentYear}</p>
+                <p className={`text-xs ${isSunset ? 'text-[#8f7489]' : 'text-gray-400'}`}>Lunas Llenas {currentYear}</p>
               </div>
 
               <div className="relative -mx-2 px-2">
@@ -62,14 +76,28 @@ export function FullMoonCalendar({ currentDate }: FullMoonCalendarProps) {
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.04 }}
-                      className={`flex-shrink-0 w-24 p-3 rounded-lg text-center transition-all duration-300 ${
-                        fullMoon.isToday ? 'bg-white text-black ring-2 ring-white/50' : 'bg-white/20 hover:bg-white/30'
+                      className={`w-24 flex-shrink-0 rounded-lg p-3 text-center transition-all duration-300 ${
+                        fullMoon.isToday
+                          ? isSunset
+                            ? 'bg-[#251320] text-white ring-2 ring-fuchsia-300/40'
+                            : 'bg-white text-black ring-2 ring-white/50'
+                          : isSunset
+                            ? 'border border-[#f0d8e7] bg-[#fff6fb] hover:bg-[#fdebf6]'
+                            : 'bg-white/20 hover:bg-white/30'
                       }`}
                       whileHover={{ scale: 1.05, y: -2 }}
                     >
                       <div className="flex justify-center mb-2">
                         <motion.div
-                          className={`w-6 h-6 rounded-full ${fullMoon.isToday ? 'bg-black' : 'bg-white'}`}
+                          className={`h-6 w-6 rounded-full ${
+                            fullMoon.isToday
+                              ? isSunset
+                                ? 'bg-white'
+                                : 'bg-black'
+                              : isSunset
+                                ? 'bg-[#1f1622]'
+                                : 'bg-white'
+                          }`}
                           animate={
                             fullMoon.isToday
                               ? {
@@ -85,23 +113,37 @@ export function FullMoonCalendar({ currentDate }: FullMoonCalendarProps) {
                         />
                       </div>
 
-                      <div className={`text-xs font-medium mb-1 capitalize ${fullMoon.isToday ? 'text-black' : 'text-gray-300'}`}>
+                      <div
+                        className={`mb-1 text-xs font-medium capitalize ${
+                          fullMoon.isToday ? (isSunset ? 'text-white/82' : 'text-black') : isSunset ? 'text-[#8f7489]' : 'text-gray-300'
+                        }`}
+                      >
                         {fullMoon.monthName}
                       </div>
-                      <div className={`text-2xl font-bold ${fullMoon.isToday ? 'text-black' : 'text-white'}`}>
+                      <div
+                        className={`text-2xl font-bold ${
+                          fullMoon.isToday ? (isSunset ? 'text-white' : 'text-black') : isSunset ? 'text-[#1f1622]' : 'text-white'
+                        }`}
+                      >
                         {fullMoon.day}
                       </div>
 
                       {fullMoon.isToday && (
-                        <div className="mt-2 text-[9px] bg-black/20 px-2 py-0.5 rounded-full text-black">HOY</div>
+                        <div
+                          className={`mt-2 rounded-full px-2 py-0.5 text-[9px] ${
+                            isSunset ? 'bg-white/16 text-white' : 'bg-black/20 text-black'
+                          }`}
+                        >
+                          HOY
+                        </div>
                       )}
                     </motion.div>
                   ))}
                 </div>
               </div>
 
-              <div className="mt-3 pt-3 border-t border-white/20 text-center">
-                <span className="text-[10px] text-gray-400">← Desliza para ver más →</span>
+              <div className={`mt-3 border-t pt-3 text-center ${isSunset ? 'border-[#efcfdf]' : 'border-white/20'}`}>
+                <span className={`text-[10px] ${isSunset ? 'text-[#8f7489]' : 'text-gray-400'}`}>← Desliza para ver más →</span>
               </div>
             </div>
           </motion.div>

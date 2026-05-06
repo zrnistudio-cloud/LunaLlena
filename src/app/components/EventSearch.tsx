@@ -3,13 +3,14 @@ import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 
 interface EventSearchProps {
-  onSearch: (location: string) => void;
+  onSearch: (province: string) => void;
   onMonthChange: (date: Date) => void;
   searchLocation?: string;
   selectedDate: Date;
   phaseName: string;
   cityOptions: string[];
   compact?: boolean;
+  themeMode?: 'sunset' | 'moon';
 }
 
 export function EventSearch({
@@ -19,7 +20,10 @@ export function EventSearch({
   selectedDate,
   cityOptions,
   compact = false,
+  themeMode = 'sunset',
 }: EventSearchProps) {
+  const isSunset = themeMode === 'sunset';
+
   const changeMonth = (offset: number) => {
     const nextDate = new Date(selectedDate);
     nextDate.setMonth(selectedDate.getMonth() + offset, 1);
@@ -31,7 +35,9 @@ export function EventSearch({
     <div
       className={`w-full mx-auto ${
         compact
-          ? 'mb-8 rounded-[1.5rem] border border-[#ead6e6] bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(250,239,248,0.96))] px-3 py-3 shadow-[0_18px_35px_rgba(22,10,24,0.08)] backdrop-blur-xl'
+          ? isSunset
+            ? 'mb-8 rounded-[1.5rem] border border-[#ead6e6] bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(250,239,248,0.96))] px-3 py-3 shadow-[0_18px_35px_rgba(22,10,24,0.08)] backdrop-blur-xl'
+            : 'mb-8 rounded-[1.5rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(18,12,27,0.32))] px-3 py-3 shadow-[0_18px_35px_rgba(7,3,14,0.20)] backdrop-blur-xl'
           : 'mb-12'
       }`}
     >
@@ -48,18 +54,30 @@ export function EventSearch({
         )}
 
         <div className={`${compact ? 'flex flex-row items-center gap-3 w-full max-w-none' : 'flex flex-col gap-4 xl:justify-self-start xl:w-full xl:max-w-[360px]'}`}>
-          <div className={`${compact ? 'flex-1 min-w-0 h-[56px]' : 'w-full h-[68px]'} flex items-center gap-3 px-3 py-2 bg-[#f4dff1] border border-[#e9cfe4] rounded-2xl transition-all duration-300`}>
+          <div
+            className={`${compact ? 'flex-1 min-w-0 h-[56px]' : 'w-full h-[68px]'} flex items-center gap-3 rounded-2xl border px-3 py-2 transition-all duration-300 ${
+              isSunset ? 'border-[#e9cfe4] bg-[#f4dff1]' : 'border-white/10 bg-white/[0.06]'
+            }`}
+          >
             <button
               type="button"
               onClick={() => changeMonth(-1)}
               aria-label="Mes anterior"
-              className={`${compact ? 'w-9 h-9' : 'w-12 h-12'} shrink-0 rounded-full border border-[#e6d6e3] bg-white text-black flex items-center justify-center hover:bg-[#f8edf6] transition-all duration-300`}
+              className={`${compact ? 'w-9 h-9' : 'w-12 h-12'} shrink-0 rounded-full border flex items-center justify-center transition-all duration-300 ${
+                isSunset
+                  ? 'border-[#e6d6e3] bg-white text-black hover:bg-[#f8edf6]'
+                  : 'border-white/12 bg-white/10 text-white hover:bg-white/16'
+              }`}
             >
               <ChevronLeft className={`${compact ? 'w-4 h-4' : 'w-5 h-5'}`} />
             </button>
 
             <div className="flex-1 text-center min-w-0">
-              <p className={`${compact ? 'text-[1rem]' : 'text-[1.35rem]'} text-black leading-none font-medium capitalize truncate`}>
+              <p
+                className={`${compact ? 'text-[1rem]' : 'text-[1.35rem]'} leading-none font-medium capitalize truncate ${
+                  isSunset ? 'text-black' : 'text-white'
+                }`}
+              >
                 {format(selectedDate, 'MMMM yyyy', { locale: es })}
               </p>
             </div>
@@ -68,21 +86,33 @@ export function EventSearch({
               type="button"
               onClick={() => changeMonth(1)}
               aria-label="Mes siguiente"
-              className={`${compact ? 'w-9 h-9' : 'w-12 h-12'} shrink-0 rounded-full border border-[#e6d6e3] bg-white text-black flex items-center justify-center hover:bg-[#f8edf6] transition-all duration-300`}
+              className={`${compact ? 'w-9 h-9' : 'w-12 h-12'} shrink-0 rounded-full border flex items-center justify-center transition-all duration-300 ${
+                isSunset
+                  ? 'border-[#e6d6e3] bg-white text-black hover:bg-[#f8edf6]'
+                  : 'border-white/12 bg-white/10 text-white hover:bg-white/16'
+              }`}
             >
               <ChevronRight className={`${compact ? 'w-4 h-4' : 'w-5 h-5'}`} />
             </button>
           </div>
 
           <div className={`relative ${compact ? 'w-[240px] shrink-0' : 'w-full'}`}>
-            <MapPin className={`absolute ${compact ? 'left-4 w-4 h-4' : 'left-5 w-5 h-5'} top-1/2 -translate-y-1/2 text-black/35 pointer-events-none`} />
+            <MapPin
+              className={`absolute ${compact ? 'left-4 w-4 h-4' : 'left-5 w-5 h-5'} top-1/2 -translate-y-1/2 pointer-events-none ${
+                isSunset ? 'text-black/35' : 'text-white/38'
+              }`}
+            />
             {cityOptions.length > 0 ? (
               <select
                 value={searchLocation ?? ''}
                 onChange={(e) => onSearch(e.target.value)}
-                className={`w-full ${compact ? 'h-[56px] px-11 text-[0.95rem]' : 'h-[68px] px-14 text-[1.05rem]'} appearance-none py-4 bg-[#f4dff1] border border-[#e9cfe4] rounded-2xl text-black focus:outline-none focus:ring-2 focus:ring-fuchsia-300/25 focus:border-fuchsia-300/40 transition-all duration-300`}
+                className={`w-full appearance-none py-4 rounded-2xl border focus:outline-none focus:ring-2 focus:ring-fuchsia-300/25 transition-all duration-300 ${compact ? 'h-[56px] px-11 text-[0.95rem]' : 'h-[68px] px-14 text-[1.05rem]'} ${
+                  isSunset
+                    ? 'bg-[#f4dff1] border-[#e9cfe4] text-black focus:border-fuchsia-300/40'
+                    : 'bg-white/[0.06] border-white/10 text-white focus:border-fuchsia-300/28'
+                }`}
               >
-                <option value="">Todas las ciudades</option>
+                <option value="">Todas las provincias</option>
                 {cityOptions.map((city) => (
                   <option key={city} value={city}>
                     {city}
@@ -90,8 +120,14 @@ export function EventSearch({
                 ))}
               </select>
             ) : (
-              <div className={`w-full ${compact ? 'h-[56px] px-11 text-[0.95rem]' : 'h-[68px] px-14 text-lg'} py-4 bg-black/35 backdrop-blur-sm border border-fuchsia-300/10 rounded-2xl text-white/40 flex items-center`}>
-                No hay ciudades con eventos este mes
+              <div
+                className={`w-full ${compact ? 'h-[56px] px-11 text-[0.95rem]' : 'h-[68px] px-14 text-lg'} py-4 backdrop-blur-sm rounded-2xl border flex items-center ${
+                  isSunset
+                    ? 'bg-[#f4dff1] border-[#e9cfe4] text-black/42'
+                    : 'bg-black/35 border-fuchsia-300/10 text-white/40'
+                }`}
+              >
+                No hay provincias con eventos este mes
               </div>
             )}
           </div>
