@@ -349,48 +349,6 @@ const destinationConfigs: Record<PortalDestination, DestinationConfig> = {
   },
 };
 
-const steps = ['Puerta', 'Lectura', 'Mensaje'];
-
-function StepIndicator({
-  activeStep,
-  isSunset,
-}: {
-  activeStep: 1 | 2 | 3;
-  isSunset: boolean;
-}) {
-  return (
-    <div className="flex items-center gap-2">
-      {steps.map((step, index) => {
-        const stepNumber = (index + 1) as 1 | 2 | 3;
-        const isActive = activeStep >= stepNumber;
-
-        return (
-          <div key={step} className="flex min-w-0 items-center gap-2">
-            <div
-              className={`h-2.5 w-2.5 rounded-full transition-all duration-300 ${
-                isActive
-                  ? isSunset
-                    ? 'bg-fuchsia-500'
-                    : 'bg-fuchsia-300'
-                  : isSunset
-                    ? 'bg-[#d7bfd1]'
-                    : 'bg-white/18'
-              }`}
-            />
-            <span
-              className={`text-[11px] uppercase tracking-[0.16em] ${
-                isSunset ? 'text-[#8f7489]' : 'text-white/45'
-              }`}
-            >
-              {step}
-            </span>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
-
 export function MoonWellbeingSection({
   selectedDate,
   phaseName,
@@ -414,8 +372,6 @@ export function MoonWellbeingSection({
   const activeConfig = selectedDestination ? destinationConfigs[selectedDestination] : null;
   const activeOption =
     activeConfig?.options.find((option) => option.id === selectedOptionId) ?? null;
-
-  const activeStep: 1 | 2 | 3 = activeOption ? 3 : selectedDestination ? 2 : 1;
 
   const shellClassName = isSunset
     ? 'border-[#ead6e6] bg-[linear-gradient(135deg,rgba(255,255,255,0.98),rgba(248,232,243,0.95)_52%,rgba(255,255,255,0.99))] shadow-[0_24px_90px_rgba(64,24,48,0.12)]'
@@ -455,16 +411,10 @@ export function MoonWellbeingSection({
 
         <div className={`mb-6 rounded-[1.75rem] border p-5 md:p-6 ${softCardClassName}`}>
           <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-            <div className="space-y-3">
-              <StepIndicator activeStep={activeStep} isSunset={isSunset} />
-              <div>
-                <p className={`mb-1 text-[11px] uppercase tracking-[0.18em] ${mutedClassName}`}>
-                  Consulta actual
-                </p>
-                <p className={`text-[1.2rem] leading-[1.08] md:text-[1.45rem] font-display ${titleClassName}`}>
-                  {selectedDestination ?? 'Elegí una puerta de entrada'}{activeOption ? ` · ${activeOption.label}` : ''}
-                </p>
-              </div>
+            <div>
+              <p className={`text-[1.2rem] leading-[1.08] md:text-[1.45rem] font-display ${titleClassName}`}>
+                {selectedDestination ? `${selectedDestination}${activeOption ? ` · ${activeOption.label}` : ''}` : 'Elegí qué querés consultar hoy'}
+              </p>
             </div>
 
             <div className="flex flex-wrap gap-3">
@@ -488,7 +438,7 @@ export function MoonWellbeingSection({
           </div>
         </div>
 
-        {activeStep === 1 && (
+        {!selectedDestination && (
           <section className={`rounded-[1.9rem] border p-5 md:p-6 ${softCardClassName}`}>
             <div className="mb-5">
               <p className={`mb-2 text-[11px] uppercase tracking-[0.18em] ${mutedClassName}`}>Paso 1</p>
@@ -542,7 +492,7 @@ export function MoonWellbeingSection({
           </section>
         )}
 
-        {activeStep === 2 && activeConfig && (
+        {selectedDestination && !activeOption && activeConfig && (
           <section className={`rounded-[1.9rem] border p-5 md:p-6 ${softCardClassName}`}>
             <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
               <div>
@@ -585,7 +535,7 @@ export function MoonWellbeingSection({
           </section>
         )}
 
-        {activeStep === 3 && activeConfig && activeOption && (
+        {activeConfig && activeOption && (
           <section className="space-y-5">
             <div className={`rounded-[1.9rem] border p-5 md:p-6 ${deepCardClassName}`}>
               <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
