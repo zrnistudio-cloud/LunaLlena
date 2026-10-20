@@ -1,39 +1,36 @@
-
-  <!DOCTYPE html>
-  <html lang="es">
-    <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>En Luna Llena | Agenda lunar y bienestar</title>
-      <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
-      <meta
-        name="description"
-        content="Una experiencia lunar para consultar fases, descubrir eventos bajo la luna llena y recibir lecturas de bienestar con una mirada intuitiva, simbólica y editorial."
-      />
-      <meta name="theme-color" content="#0a0712" />
-      <meta property="og:title" content="En Luna Llena | Agenda lunar y bienestar" />
-      <meta
-        property="og:description"
-        content="Consultá fases lunares, explorá eventos en Argentina y recibí devoluciones de bienestar con una mirada mágica, sensible y ritual."
-      />
-      <meta property="og:type" content="website" />
-      <meta name="twitter:card" content="summary_large_image" />
-      <script>
-        (function () {
-          var params = new URLSearchParams(window.location.search);
-          var redirectPath = params.get('p');
-          if (!redirectPath) return;
-
-          var nextUrl = redirectPath + window.location.hash;
-          window.history.replaceState(null, '', nextUrl);
-        })();
-      </script>
-      <script type="module" crossorigin src="./assets/index-CqdBhoNs.js"></script>
-      <link rel="stylesheet" crossorigin href="./assets/index-B8uJVeZA.css">
-    </head>
-
-    <body>
-      <div id="root"></div>
-    </body>
-  </html>
-  
+<!DOCTYPE html>
+<html lang="es-AR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hoy | En Luna Llena</title>
+    <meta name="description" content="La Luna de hoy, sus fases y próximas fechas desde Argentina." />
+    <meta name="theme-color" content="#111214" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href="https://enlunallena.com.ar/" />
+    <meta property="og:title" content="Hoy | En Luna Llena" />
+    <meta property="og:description" content="La Luna de hoy, sus fases y próximas fechas desde Argentina." />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:url" content="https://enlunallena.com.ar/" />
+    <meta property="og:image" content="https://enlunallena.com.ar/social.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="En Luna Llena: una ventana al cielo" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script>
+      try { document.documentElement.dataset.theme = localStorage.getItem('luna-theme') === 'day' ? 'day' : 'night'; } catch (_) {}
+      // Preserve links from the previous GitHub Pages fallback.
+      var p = new URLSearchParams(location.search).get('p');
+      if (p && p.startsWith('/') && !p.startsWith('//')) {
+        try { var target = new URL(p, location.origin); if (target.origin === location.origin) history.replaceState(null, '', target.pathname + target.search + target.hash); } catch (_) {}
+      }
+    </script>
+    <script type="module" crossorigin src="/assets/index-VweaTyxB.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-DUjFHBPu.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript><p>En Luna Llena necesita JavaScript para mostrar las fases y el calendario interactivo.</p></noscript>
+  </body>
+</html>
