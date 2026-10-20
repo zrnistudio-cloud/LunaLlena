@@ -1,0 +1,1 @@
+import{j as e}from"./index-BDYCT4lD.js";function i({eyebrow:a,title:r,children:s}){return e.jsxs("header",{className:"page-heading",children:[e.jsx("p",{className:"eyebrow",children:a}),e.jsx("h1",{children:r}),s&&e.jsx("p",{className:"lede",children:s})]})}export{i as P};
